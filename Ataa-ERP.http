@@ -1,0 +1,6 @@
+@Ataa_ERP_HostAddress = http://localhost:5132
+
+GET {{Ataa_ERP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
