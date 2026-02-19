@@ -3,7 +3,7 @@
 using System.Security.Cryptography;
 using Application.Abstractions.Services;
 using Domain.FileUploads;
-using Infrastructure.Database;
+using Infrastructure.Data;
 using Infrastructure.Settings;
 using Microsoft.EntityFrameworkCore;
 
