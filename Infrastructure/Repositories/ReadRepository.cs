@@ -1,7 +1,7 @@
 
 using Application.Abstractions.Repositories;
 using Ardalis.Specification.EntityFrameworkCore;
-using Infrastructure.Database;
+using Infrastructure.Data;
 
 namespace Infrastructure.Repositories;
 

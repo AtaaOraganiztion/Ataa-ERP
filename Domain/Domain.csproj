@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Folder Include="Identities\Entities\" />
       <Folder Include="Models\" />
     </ItemGroup>
 
