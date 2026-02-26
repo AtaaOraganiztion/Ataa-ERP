@@ -4,7 +4,7 @@ namespace SharedKernel.Common
 {
     public abstract class BaseEntity
     {
-        public Guid Id { get; set; }
+        public Ulid Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
@@ -13,7 +13,7 @@ namespace SharedKernel.Common
 
         protected BaseEntity()
         {
-            Id = Guid.NewGuid();
+            Id = Ulid.NewUlid();
             CreatedDate = DateTime.UtcNow;
             IsDeleted = false;
         }

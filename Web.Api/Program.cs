@@ -5,6 +5,7 @@ using Infrastructure;
 using Infrastructure.Converters;
 using Infrastructure.Services;
 using Infrastructure.Settings;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Web.Api;
@@ -31,16 +32,21 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
         .AllowAnyMethod()));
 
 builder.Services.AddHttpContextAccessor();
-var configuration = builder.Configuration;
-var mailSetting = configuration.GetSection("MailSetting").Get<MailSetting>();
-builder.Services.AddSingleton(mailSetting);
-builder.Services.AddScoped<IEmailService, EmailService>();
+
 builder.Services
     .AddApplication()
     .AddPresentation()
     .AddInfrastructure(builder.Configuration);
 
+var configuration = builder.Configuration;
+var mailSetting = configuration.GetSection("MailSetting").Get<MailSetting>();
+builder.Services.AddSingleton(mailSetting);
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddAuthorization();
+
 builder.Services.AddSwaggerGen(
     options =>
     {
@@ -91,7 +97,9 @@ app.UseSwaggerUI();
 
 app.ApplyMigrations();
 
-//app.UseHttpsRedirection();
+await app.SeedDatabaseAsync();
+
+app.UseHttpsRedirection();
 
 app.UseCors();
 

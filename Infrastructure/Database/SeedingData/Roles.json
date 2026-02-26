@@ -1,0 +1,16 @@
+[
+  {
+    "Id": "01JVMNVXTVYWHHSADFXGJZP4P6",
+    "Name": "Admin",
+    "NormalizedName": "ADMIN",
+    "Description": "Administrator role with full system access",
+    "ConcurrencyStamp": "3a7607d0-34ce-48f7-ae5e-efe0517d2339"
+  },
+  {
+    "Id": "01JVMNWDT4SQNEDV801EXWHFGE",
+    "Name": "User",
+    "NormalizedName": "USER",
+    "Description": "Standard user role with limited access",
+    "ConcurrencyStamp": "68d7297a-7794-4aea-960a-b7a22b83610e"
+  }
+]

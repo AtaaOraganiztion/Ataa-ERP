@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "Admin User",
+    "Email": "admin@system.com",
+    "Phone": "+1234567890",
+    "Password": "Admin123!",
+    "Role": "Admin",
+    "NID": "12345678901234",
+    "Gender": "Male",
+    "Status": "Active"
+  },
+  {
+    "Name": "Regular User",
+    "Email": "user@gmail.com",
+    "Phone": "+1234567892",
+    "Password": "User123!",
+    "Role": "User",
+    "NID": "12345678901234",
+    "Gender": "Male",
+    "Status": "Active"
+  }
+]

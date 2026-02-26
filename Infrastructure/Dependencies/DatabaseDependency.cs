@@ -1,4 +1,4 @@
-using Domain.Identities.Entities;
+using Domain.Entities;
 using Infrastructure.Data;
 using Infrastructure.Interceptors;
 using Microsoft.AspNetCore.Identity;
