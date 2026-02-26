@@ -2,19 +2,19 @@
 using System.Security.Cryptography;
 using System.Text;
 using Application.Abstractions.Authentication;
-using Domain.Identities.Entities;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using SharedKernel;
 using Claim = System.Security.Claims.Claim;
+using User = Domain.Entities.User;
 
 namespace Infrastructure.Authentication;
 
 internal sealed class TokenProvider(JwtSetting jwtSetting, UserManager<User> userManager) : ITokenProvider
 {
-    public (string acessToken, int expiresIn, string tokenType) CreateAccessToken(User user)
+    public (string acessToken, int expiresIn, string tokenType) CreateAccessToken(Domain.Entities.User user)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSetting.Key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -48,6 +48,8 @@ internal sealed class TokenProvider(JwtSetting jwtSetting, UserManager<User> use
 
         return (token, jwtSetting.ExpiresIn, "Bearer");
     }
+
+  
 
     public (string refreshToken, int expiresIn) GenerateRefreshToken()
     {

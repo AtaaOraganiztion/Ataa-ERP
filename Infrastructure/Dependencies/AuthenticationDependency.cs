@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using System.Text;
 using Application.Abstractions.Authentication;
-using Domain.Identities.Entities;
 using Infrastructure.Authentication;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 

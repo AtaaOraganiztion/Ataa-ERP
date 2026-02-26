@@ -1,4 +1,5 @@
-﻿using Domain.Identities.Entities;
+﻿
+using Domain.Entities;
 
 namespace Application.Abstractions.Authentication;
 
