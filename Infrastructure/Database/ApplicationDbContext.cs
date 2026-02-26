@@ -1,39 +1,43 @@
-﻿using Domain.Identities.Entities;
-using Infrastructure.Conventions;
+﻿using System;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Domain.Entities;
+using Infrastructure.Conventions;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using SharedKernel;
-using System.Linq.Expressions;
+using SharedKernel.Common;
 
-namespace Infrastructure.Database;
-
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    : DbContext(options)
+namespace Infrastructure.Data
 {
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        base.OnModelCreating(builder);
-        builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-
-        // Apply soft delete filter to all entities implementing ISoftDeletable
-        foreach (IMutableEntityType entityType in builder.Model.GetEntityTypes())
+    public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : IdentityDbContext<User, Role, Ulid>(options)    {
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            if (typeof(ISoftDeletableEntity).IsAssignableFrom(entityType.ClrType))
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+            
+            foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
             {
-                ParameterExpression parameter = Expression.Parameter(entityType.ClrType, "e");
-                MemberExpression property = Expression.Property(parameter, nameof(ISoftDeletableEntity.IsDeleted));
-                LambdaExpression filter =
-                    Expression.Lambda(Expression.Equal(property, Expression.Constant(false)), parameter);
+                if (typeof(ISoftDeletableEntity).IsAssignableFrom(entityType.ClrType))
+                {
+                    ParameterExpression parameter = Expression.Parameter(entityType.ClrType, "e");
+                    MemberExpression property = Expression.Property(parameter, nameof(ISoftDeletableEntity.IsDeleted));
+                    LambdaExpression filter =
+                        Expression.Lambda(Expression.Equal(property, Expression.Constant(false)), parameter);
 
-                builder.Entity(entityType.ClrType).HasQueryFilter(filter);
+                    modelBuilder.Entity(entityType.ClrType).HasQueryFilter(filter);
+                }
             }
+
+        }
+        
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            base.ConfigureConventions(configurationBuilder);
+            configurationBuilder.AddUlidConvention();
         }
     }
-
-    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
-    {
-        base.ConfigureConventions(configurationBuilder);
-        configurationBuilder.AddUlidConvention();
-    }
-    
 }

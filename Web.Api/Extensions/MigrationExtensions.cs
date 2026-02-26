@@ -1,4 +1,4 @@
-﻿using Infrastructure.Database;
+﻿using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Web.Api.Extensions;
