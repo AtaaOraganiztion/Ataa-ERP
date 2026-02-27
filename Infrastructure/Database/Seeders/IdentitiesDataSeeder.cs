@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Converters;
@@ -22,7 +23,7 @@ public class IdentitiesDataSeeder(
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
-        Converters = { new UlidJsonConverter() }
+        Converters = { new UlidJsonConverter(), new JsonStringEnumConverter() }
     };
 
     public async Task SeedAsync(List<KeyValuePair<string, string>> permissions)
@@ -85,7 +86,21 @@ public class IdentitiesDataSeeder(
         }
 
         string usersJson = File.ReadAllText(usersFilePath);
-        List<UserData>? usersData = JsonSerializer.Deserialize<List<UserData>>(usersJson, _jsonOptions);
+
+        // Clean JSON from possible BOM or line comments coming from other editors or manual edits on different machines
+        usersJson = CleanJson(usersJson);
+
+        List<UserData>? usersData;
+        try
+        {
+            usersData = JsonSerializer.Deserialize<List<UserData>>(usersJson, _jsonOptions);
+        }
+        catch (JsonException jsonEx)
+        {
+            logger.LogError(jsonEx, "Failed to deserialize Users.json (first 1KB): {JsonPreview}",
+                usersJson.Length > 1024 ? usersJson.Substring(0, 1024) : usersJson);
+            throw;
+        }
 
         if (usersData == null || !usersData.Any())
         {
@@ -136,6 +151,19 @@ public class IdentitiesDataSeeder(
         }
 
         logger.LogInformation("Finished seeding users");
+    }
+
+    private static string CleanJson(string json)
+    {
+        if (string.IsNullOrEmpty(json)) return json;
+
+        // Remove BOM if present
+        if (json[0] == '\uFEFF') json = json.Substring(1);
+
+        // Remove simple // line comments to tolerate files edited on other machines
+        var lines = json.Split(new[] { '\r', '\n' }, StringSplitOptions.None);
+        var cleaned = lines.Where(l => !l.TrimStart().StartsWith("//")).ToArray();
+        return string.Join(Environment.NewLine, cleaned);
     }
 
     private sealed class UserData
