@@ -1,8 +1,11 @@
+using Domain.Enums;
+
 namespace Application.Features.Identities.Dtos;
 
 public record TokenResponseDto(
     string AccessToken,
     double ExpiresIn,
     string TokenType,
-    Ulid SessionState
+    Ulid SessionState,
+    UserInfoDto? User = null
 );

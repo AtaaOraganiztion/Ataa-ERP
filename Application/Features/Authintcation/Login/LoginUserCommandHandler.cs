@@ -14,8 +14,6 @@ public class LoginUserCommandHandler(
     ITokenProvider tokenProvider)
     : ICommandHandler<LoginUserCommand, TokenResponseDto>
 {
-    private const int MaxDevicesPerUser = 2;
-
     public async Task<Result<TokenResponseDto>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
         // 1. Find the user by email
@@ -31,14 +29,38 @@ public class LoginUserCommandHandler(
         (string accessToken, int expiresIn, string tokenType) =
             tokenProvider.CreateAccessToken(user);
 
-        // 4. Check if this device is already registered for this user
-        
+        // 4. Get user roles (take the first role or empty)
+        var roles = await userManager.GetRolesAsync(user);
+        string role = roles != null && roles.Any() ? roles.First() : string.Empty;
 
         // 5. Update the user's last login date
         await SetUserLastLoginDate(user);
 
-        return Result.Success(new TokenResponseDto(accessToken, expiresIn,
-            tokenType, Ulid.NewUlid()));
+        // Build user info DTO to include full user data in the response
+        var userInfo = new UserInfoDto(
+            user.Id,
+            user.Name ?? string.Empty,
+            user.Email ?? string.Empty,
+            user.EmailConfirmed,
+            user.PhoneNumber ?? user.Phone ?? string.Empty,
+            null, // ProfileImage not available
+            user.LockoutEnabled,
+            user.LockoutEnd,
+            user.LastLoginDate,
+            user.NID,
+            user.Age ?? 0,
+            user.Gender,
+            roles ?? new List<string>()
+        );
+
+        // 6. Return token + user info
+        return Result.Success(new TokenResponseDto(
+            accessToken,
+            expiresIn,
+            tokenType,
+            Ulid.NewUlid(),
+            userInfo
+        ));
     }
     
 
@@ -59,6 +81,7 @@ public class LoginUserCommandHandler(
 
     private async Task SetUserLastLoginDate(User user)
     {
+        user.LastLoginDate = DateTime.UtcNow; 
         await userManager.UpdateAsync(user);
     }
 }
