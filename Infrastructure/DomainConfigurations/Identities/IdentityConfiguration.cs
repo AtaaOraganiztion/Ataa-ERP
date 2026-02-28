@@ -30,6 +30,7 @@ public class IdentityConfiguration :
         builder.HasMany(u => u.UserRoles)
             .WithOne(ur => ur.User)
             .HasForeignKey(ur => ur.UserId)
+            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
     }
 
@@ -40,6 +41,7 @@ public class IdentityConfiguration :
         builder.HasMany(r => r.UserRoles)
             .WithOne(ur => ur.Role)
             .HasForeignKey(ur => ur.RoleId)
+            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
     }
 

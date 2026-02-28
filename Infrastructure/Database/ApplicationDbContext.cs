@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Infrastructure.Conventions;
@@ -18,7 +19,9 @@ namespace Infrastructure.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
             
-            foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
+            // materialize the collection first to avoid modifying the model while enumerating it
+            var entityTypes = modelBuilder.Model.GetEntityTypes().ToList();
+            foreach (IMutableEntityType entityType in entityTypes)
             {
                 if (typeof(ISoftDeletableEntity).IsAssignableFrom(entityType.ClrType))
                 {
@@ -33,7 +36,7 @@ namespace Infrastructure.Data
 
         }
         
-
+        
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
             base.ConfigureConventions(configurationBuilder);
