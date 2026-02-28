@@ -9,7 +9,7 @@
 
     <ItemGroup>
       <Folder Include="Features\Authintcation\" />
-      <Folder Include="Mapping\" />
+      <Folder Include="Features\Employee\" />
       <Folder Include="Services\" />
     </ItemGroup>
 
