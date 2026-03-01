@@ -15,7 +15,7 @@ namespace Domain.Models.Employee
         public string EmployeeNumber { get; set; } = null!;
         public string EmployeeEmail { get; set; } = null!;
         public string JobTitle { get; set; } = null!;
-        public Ulid SectorId { get; set; }
+        public Ulid? SectorId { get; set; }
         public Ulid UserId { get; set; }
         public DateTime HireDate { get; set; }
         public decimal BaseSalary { get; set; }
@@ -26,10 +26,7 @@ namespace Domain.Models.Employee
         
         public virtual User User { get; set; }
         public virtual Sector Sector { get; set; }
-        public virtual IEnumerable<Attendance> Attendances { get; set; }
-        public virtual IEnumerable<Leave> Leaves { get; set; }
         public virtual IEnumerable<Salary> Salaries { get; set; }
-        public virtual IEnumerable<KPI> KPIs { get; set; }
 
         
 

@@ -3,7 +3,6 @@ using System.Text.Json.Serialization;
 using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Converters;
-using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using SharedKernel;

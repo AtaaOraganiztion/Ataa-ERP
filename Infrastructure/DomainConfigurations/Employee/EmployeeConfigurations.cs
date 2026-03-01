@@ -19,16 +19,16 @@ public class EmployeeConfigurations : IEntityTypeConfiguration<Domain.Models.Emp
             .HasIndex(b=> b.EmployeeLastName);
         
         builder
-            .HasOne<Domain.Entities.User>(e => e.User)              
-            .WithOne(u => u.Employee)        
-            .HasForeignKey<Domain.Models.Employee.Employee>(e => e.UserId)
-            .OnDelete(DeleteBehavior.NoAction);
-        
-        builder
-            .HasOne(s => s.Sector)
+            .HasOne(e => e.Sector)
             .WithMany(s => s.Employees)
             .HasForeignKey(e => e.SectorId)
             .OnDelete(DeleteBehavior.NoAction);
         
+        
+        builder
+            .HasMany(e=> e.Salaries)
+            .WithOne(e => e.Employee)
+            .HasForeignKey(e => e.EmployeeId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

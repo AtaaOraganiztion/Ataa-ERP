@@ -8,6 +8,7 @@ public static class DataSeederDependency
     public static IServiceCollection AddDataSeeder(this IServiceCollection services)
     {
         services.AddScoped<IdentitiesDataSeeder>();
+        services.AddScoped<SectorDataSeeder>();
 
         return services;
     }
