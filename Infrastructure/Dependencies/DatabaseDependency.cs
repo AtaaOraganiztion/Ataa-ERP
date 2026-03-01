@@ -1,5 +1,5 @@
 using Domain.Entities;
-using Infrastructure.Data;
+using Infrastructure.Database;
 using Infrastructure.Interceptors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -23,8 +23,7 @@ public static class DatabaseDependency
                 {
                     sqlServerOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName);
                     sqlServerOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
-                })
-                .UseSnakeCaseNamingConvention();
+                });
 
             options.AddInterceptors(
                 sp.GetRequiredService<AuditInterceptor>(),

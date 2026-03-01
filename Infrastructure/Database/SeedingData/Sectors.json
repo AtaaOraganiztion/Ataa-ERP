@@ -1,0 +1,9 @@
+[
+  {
+    "Name": "Bussiness Unit",
+    "Description": "Sector that represents the main industry or field of activity for a company.",
+    "ParentSectorId" : null,
+    "MainSectorId" : null
+  }
+]
+

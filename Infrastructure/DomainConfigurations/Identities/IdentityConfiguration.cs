@@ -32,6 +32,12 @@ public class IdentityConfiguration :
             .HasForeignKey(ur => ur.UserId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
+        
+        builder
+            .HasOne(u => u.Employee)
+            .WithOne(e => e.User)
+            .HasForeignKey<Domain.Models.Employee.Employee>(e => e.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 
     public void Configure(EntityTypeBuilder<Role> builder)

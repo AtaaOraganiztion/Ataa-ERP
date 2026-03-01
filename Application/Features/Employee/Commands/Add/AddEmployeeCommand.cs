@@ -8,7 +8,7 @@ public record AddEmployeeCommand(
     string LastName,
     string Email,
     string Phone,
-    Ulid SectorId,
+    Ulid? SectorId,
     string jobTitle,
     decimal Salary,
     DateTime HireDate,
