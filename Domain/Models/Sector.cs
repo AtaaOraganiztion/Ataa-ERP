@@ -15,7 +15,7 @@ namespace Domain.Models
         public Ulid? ManagerUserId { get; set; }
 
         public virtual Sector? ParentSector { get; set; }
-        public virtual User Manager { get; set; }
+        public virtual User? Manager { get; set; }
         public virtual ICollection<Sector> ChildSectors { get; set; }
         public virtual ICollection<Employee.Employee> Employees { get; set; }
 

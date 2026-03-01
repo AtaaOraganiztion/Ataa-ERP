@@ -4,13 +4,13 @@ using Domain.Entities.Enums;
 namespace Application.Features.Employee.Commands.Add;
 
 public record AddEmployeeCommand( 
-    string FirstName,
-    string LastName,
-    string Email,
-    string Phone,
+    string EmployeeFirstName,
+    string EmployeeLastName,
+    string EmployeeEmail,
+    string EmployeeNumber,
     Ulid? SectorId,
-    string jobTitle,
-    decimal Salary,
+    string JobTitle,
+    decimal BaseSalary,
     DateTime HireDate,
     EmploymentType EmploymentType,
     EmployeeStatus Status,

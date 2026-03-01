@@ -10,28 +10,28 @@ public class GetEmployeeSpec : Specification<Domain.Models.Employee.Employee>
 {
     public GetEmployeeSpec(EmployeeFilter employeeFilter)
     {
-        if (!string.IsNullOrWhiteSpace(employeeFilter.FirstName))
+        if (!string.IsNullOrWhiteSpace(employeeFilter.EmployeeFirstName))
         {
-            Query.Where(x => x.EmployeeFirstName.Contains(employeeFilter.FirstName));
+            Query.Where(x => x.EmployeeFirstName.Contains(employeeFilter.EmployeeFirstName));
         }
         
-        if (!string.IsNullOrWhiteSpace(employeeFilter.LastName))
+        if (!string.IsNullOrWhiteSpace(employeeFilter.EmployeeLastName))
         {
-            Query.Where(x => x.EmployeeLastName.Contains(employeeFilter.LastName));
+            Query.Where(x => x.EmployeeLastName.Contains(employeeFilter.EmployeeLastName));
         }
         
-        if (!string.IsNullOrWhiteSpace(employeeFilter.Email))
+        if (!string.IsNullOrWhiteSpace(employeeFilter.EmployeeEmail))
         {
-            Query.Where(x => x.EmployeeEmail.Contains(employeeFilter.Email));
+            Query.Where(x => x.EmployeeEmail.Contains(employeeFilter.EmployeeEmail));
         }
         
-        if (!string.IsNullOrWhiteSpace(employeeFilter.jobTitle))
+        if (!string.IsNullOrWhiteSpace(employeeFilter.JobTitle))
         {
-            Query.Where(x => x.JobTitle.Contains(employeeFilter.jobTitle));
+            Query.Where(x => x.JobTitle.Contains(employeeFilter.JobTitle));
         }
-        if (!string.IsNullOrWhiteSpace(employeeFilter.Phone))
+        if (!string.IsNullOrWhiteSpace(employeeFilter.EmployeeNumber))
         {
-            Query.Where(x => x.EmployeeNumber.Contains(employeeFilter.Phone));
+            Query.Where(x => x.EmployeeNumber.Contains(employeeFilter.EmployeeNumber));
         }
         
         if (employeeFilter.SectorId is { } sectorId && sectorId != default)
@@ -48,9 +48,9 @@ public class GetEmployeeSpec : Specification<Domain.Models.Employee.Employee>
         {
             Query.Where(t=>t.Status == employeeFilter.Status.Value);
         }
-        if (employeeFilter.Salary.HasValue)
+        if (employeeFilter.BaseSalary.HasValue)
         {
-            Query.Where(t=>t.BaseSalary == employeeFilter.Salary.Value);
+            Query.Where(t=>t.BaseSalary == employeeFilter.BaseSalary.Value);
         }
         
     }

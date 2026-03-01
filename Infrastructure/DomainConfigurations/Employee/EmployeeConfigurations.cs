@@ -12,9 +12,11 @@ public class EmployeeConfigurations : IEntityTypeConfiguration<Domain.Models.Emp
         builder
             .HasIndex(b => b.EmployeeFirstName);
         builder
-            .HasIndex(b => b.EmployeeEmail);   
+            .HasIndex(b => b.EmployeeEmail)
+            .IsUnique();   
         builder
-            .HasIndex(b=> b.EmployeeNumber);
+            .HasIndex(b=> b.EmployeeNumber)
+            .IsUnique();
         builder
             .HasIndex(b=> b.EmployeeLastName);
         
