@@ -11,5 +11,9 @@ public static class DataSeederExtensions
 
         IdentitiesDataSeeder identitiesDataSeeder = scope.ServiceProvider.GetRequiredService<IdentitiesDataSeeder>();
         await identitiesDataSeeder.SeedAsync(PermissionsHelper.GetAll());
+
+        // Run sector seeder
+        SectorDataSeeder sectorDataSeeder = scope.ServiceProvider.GetRequiredService<SectorDataSeeder>();
+        await sectorDataSeeder.SeedAsync(PermissionsHelper.GetAll());
     }
 }
