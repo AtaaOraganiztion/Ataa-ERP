@@ -17,7 +17,7 @@ namespace Web.Api.Controllers.EmployeeController;
 public class EmployeeController() : ApiBaseController
 {
     [HttpPost(Router.Employee.Add)]
-    public async Task<IActionResult> AddEmployee([FromQuery]AddEmployeeCommand request)
+    public async Task<IActionResult> AddEmployee([FromBody]AddEmployeeCommand request)
     {
         Result<Ulid> result = await mediator.Send(request);
         
@@ -33,7 +33,7 @@ public class EmployeeController() : ApiBaseController
     }
     
     [HttpPut(Router.Employee.Update)]
-    public async Task<IActionResult> UpdateEmployee(Ulid id, [FromForm] UpdateEmployeeDto request)
+    public async Task<IActionResult> UpdateEmployee(Ulid id, [FromBody] UpdateEmployeeDto request)
     {
         Result<Ulid> result = await mediator.Send(new UpdateEmployeeCommand(id, request));
         return result.ToActionResult();

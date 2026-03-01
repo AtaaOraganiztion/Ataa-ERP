@@ -7,6 +7,8 @@ public class AddEmployeeValidator : AbstractValidator<AddEmployeeCommand>
 {
     public AddEmployeeValidator()
     {
+        RuleFor(x => x.EmployeeEmail).NotEmpty();
+        RuleFor(x => x.EmployeeNumber).NotEmpty();
 
 
     }

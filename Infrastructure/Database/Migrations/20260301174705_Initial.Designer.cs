@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260301025053_Initial")]
+    [Migration("20260301174705_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -124,6 +124,10 @@ namespace Infrastructure.Database.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("EmployeeId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
                     b.Property<int?>("Gender")
                         .HasColumnType("int");
 
@@ -177,6 +181,8 @@ namespace Infrastructure.Database.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -244,25 +250,19 @@ namespace Infrastructure.Database.Migrations
                     b.Property<DateTime?>("TerminationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(26)
-                        .HasColumnType("nvarchar(26)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeEmail");
+                    b.HasIndex("EmployeeEmail")
+                        .IsUnique();
 
                     b.HasIndex("EmployeeFirstName");
 
                     b.HasIndex("EmployeeLastName");
 
-                    b.HasIndex("EmployeeNumber");
+                    b.HasIndex("EmployeeNumber")
+                        .IsUnique();
 
                     b.HasIndex("SectorId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("Employee", (string)null);
                 });
@@ -358,7 +358,6 @@ namespace Infrastructure.Database.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ManagerId")
-                        .IsRequired()
                         .HasMaxLength(26)
                         .HasColumnType("nvarchar(26)");
 
@@ -515,6 +514,15 @@ namespace Infrastructure.Database.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("Domain.Entities.User", b =>
+                {
+                    b.HasOne("Domain.Models.Employee.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("Domain.Models.Employee.Employee", b =>
                 {
                     b.HasOne("Domain.Models.Sector", "Sector")
@@ -522,15 +530,7 @@ namespace Infrastructure.Database.Migrations
                         .HasForeignKey("SectorId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithOne("Employee")
-                        .HasForeignKey("Domain.Models.Employee.Employee", "UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Sector");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.Salary", b =>
@@ -556,9 +556,7 @@ namespace Infrastructure.Database.Migrations
                 {
                     b.HasOne("Domain.Entities.User", "Manager")
                         .WithMany()
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ManagerId");
 
                     b.HasOne("Domain.Models.Sector", "ParentSector")
                         .WithMany("ChildSectors")
@@ -639,8 +637,6 @@ namespace Infrastructure.Database.Migrations
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
-                    b.Navigation("Employee");
-
                     b.Navigation("UserRoles");
                 });
 

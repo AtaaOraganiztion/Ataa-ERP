@@ -4,13 +4,14 @@ using Domain.Entities.Enums;
 namespace Application.Features.Employee.Dtos;
 
 public record GetEmployeeDto(
-    string? FirstName,
-    string? LastName,
-    string? Email,
-    string? Phone,
+    Ulid Id,
+    string? EmployeeFirstName,
+    string? EmployeeLastName,
+    string? EmployeeEmail,
+    string? EmployeeNumber,
     Ulid? SectorId,
-    string? jobTitle,
-    decimal? Salary,
+    string? JobTitle,
+    decimal? BaseSalary,
     DateTime? HireDate,
     EmploymentType? EmploymentType,
     EmployeeStatus? Status,

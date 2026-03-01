@@ -5,9 +5,9 @@ namespace Domain.Entities.Enums;
 public enum EmploymentType
 {
     [Description("دائم")]
-    FullTime,
+    FullTime = 1,
     [Description("دوام جزئي")]
-    PartTime,
+    PartTime = 2,
     [Description("عقد")]
-    Contract
+    Contract = 3
 }

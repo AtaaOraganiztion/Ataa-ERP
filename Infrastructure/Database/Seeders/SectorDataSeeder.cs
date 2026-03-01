@@ -40,6 +40,9 @@ public class SectorDataSeeder(ApplicationDbContext dbContext,
     
     private async Task SeedSectorAsync()
     {
+        // Repair any sectors that were inserted with the default/empty Ulid
+        await RepairDefaultSectorIdsAsync();
+
         if (await dbContext.Sectors.AnyAsync())
         {
             logger.LogInformation("Sectors already seeded");
@@ -82,13 +85,17 @@ public class SectorDataSeeder(ApplicationDbContext dbContext,
                 continue;
             }
 
-            // For initial seeding avoid FK relationships to users or parents to prevent FK constraint errors.
+            // If the JSON didn't contain an Id, generate a new one so we don't insert all-zero ids
+            var sectorId = s.Id ?? Ulid.NewUlid();
+
             var sector = new Sector
             {
+                Id = sectorId,
                 Name = s.Name.Trim(),
                 Description = s.Description,
                 ParentSectorId = null,
-                ManagerUserId = null
+                ManagerUserId = null,
+                Manager = null
             };
 
             toAdd.Add(sector);
@@ -106,8 +113,34 @@ public class SectorDataSeeder(ApplicationDbContext dbContext,
             logger.LogInformation("No new sectors to seed");
         }
     }
+    private async Task RepairDefaultSectorIdsAsync()
+    {
+        var defaultId = default(Ulid);
+        var badSectors = await dbContext.Sectors.Where(s => s.Id == defaultId).ToListAsync();
+        if (!badSectors.Any())
+            return;
+
+        // For each sector with default id, ensure no dependent references exist before changing the PK.
+        foreach (var s in badSectors)
+        {
+            bool hasChildren = await dbContext.Sectors.AnyAsync(x => x.ParentSectorId == s.Id);
+            bool hasEmployees = await dbContext.Set<Domain.Models.Employee.Employee>().AnyAsync(e => e.SectorId == s.Id);
+            if (hasChildren || hasEmployees)
+            {
+                logger.LogWarning("Cannot repair sector '{Name}' with default Id because dependent FK references exist. Manual fix required.", s.Name);
+                continue;
+            }
+
+            var newId = Ulid.NewUlid();
+            logger.LogInformation("Updating sector '{Name}' Id from default to {NewId}", s.Name, newId);
+            s.Id = newId;
+        }
+
+        await dbContext.SaveChangesAsync();
+    }
     private sealed class SectorData
     {
+        public Ulid? Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public Ulid? ParentSectorId { get; set; }
