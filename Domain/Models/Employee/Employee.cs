@@ -5,6 +5,7 @@ using Domain.Entities.Enums;
 using Domain.Enums;
 using SharedKernel;
 using SharedKernel.Common;
+using Domain.Models;
 
 namespace Domain.Models.Employee
 {
@@ -24,9 +25,9 @@ namespace Domain.Models.Employee
         public string Location { get; set; } = null!;
         
         public virtual Sector Sector { get; set; }
-        public virtual IEnumerable<Salary> Salaries { get; set; }
+        public virtual IEnumerable<Domain.Models.Salary.Salary> Salaries { get; set; }
 
-        
+
 
         public bool IsDeleted { get; set; }
         public DateTime DeletedOnUtc { get; set; }

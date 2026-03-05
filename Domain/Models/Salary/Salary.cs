@@ -3,7 +3,7 @@ using Domain.Entities;
 using SharedKernel;
 using SharedKernel.Common;
 
-namespace Domain.Models
+namespace Domain.Models.Salary
 {
     public class Salary : Entity,ISoftDeletableEntity
     {

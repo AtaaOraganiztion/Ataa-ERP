@@ -10,12 +10,14 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using SharedKernel;
 using SharedKernel.Common;
 using Microsoft.AspNetCore.Identity;
+using Domain.Models.Salary;
 
 namespace Infrastructure.Database
 {
     public sealed class ApplicationDbContext : IdentityDbContext<User, Role, Ulid>
     {
         public DbSet<Sector> Sectors { get; set; }
+        public DbSet<Salary> Salaries { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
