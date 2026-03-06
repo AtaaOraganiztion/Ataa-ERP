@@ -12,11 +12,11 @@ public class GetSalaryQueryHandler(IRepository<Domain.Models.Salary.Salary> repo
 {
     public async Task<Result<List<GetSalaryDto>>> Handle(GetSalaryQuery request, CancellationToken cancellationToken)
     {
-        List<Domain.Models.Salary.Salary> employees = await repository.ListAsync(
+        List<Domain.Models.Salary.Salary> salary = await repository.ListAsync(
             new GetSalarySpec(request.SalaryFilter),
             cancellationToken);
 
-        List<GetSalaryDto> contactFormDtos = mapper.Map<List<GetSalaryDto>>(employees);
-        return Result.Success(contactFormDtos);
+        List<GetSalaryDto> salaryDtos = mapper.Map<List<GetSalaryDto>>(salary);
+        return Result.Success(salaryDtos);
     }
 }

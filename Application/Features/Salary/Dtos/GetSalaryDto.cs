@@ -1,10 +1,10 @@
-﻿
-using Domain.Entities.Enums;
+﻿using Domain.Entities.Enums;
+using SharedKernel;
 
 namespace Application.Features.Salary.Dtos;
 
 public record GetSalaryDto(
-    int? EmployeeId,
+    Ulid? EmployeeId,
     decimal? BaseSalary,
     decimal? Allowances,
     decimal? Deductions,

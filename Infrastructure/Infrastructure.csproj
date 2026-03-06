@@ -23,10 +23,6 @@
       <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="8.0.0" />
       <PackageReference Include="MimeKit" Version="4.14.0" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="DomainConfigurations\" />
-    </ItemGroup>
     <ItemGroup>
         <Content Include="Database\SeedingData\**\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
