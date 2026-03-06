@@ -26,13 +26,6 @@ namespace Domain.Models
 
         public virtual Sector Sector { get; set; }
         public virtual User ProjectManager { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; }
-
-
-        public Project()
-        {
-            Tasks = new HashSet<Task>();
-        }
 
         public bool IsDeleted { get; set; }
         public DateTime DeletedOnUtc { get; set; }

@@ -1,6 +1,5 @@
 namespace Domain.Enums
 {
-    public enum AttendanceStatus { Present = 1, Absent = 2, Late = 3, OnLeave = 4, WorkFromHome = 5 }
     public enum LeaveType { Annual = 1, Sick = 2, Unpaid = 3, Maternity = 4, Paternity = 5 }
     public enum LeaveStatus { Pending = 1, Approved = 2, Rejected = 3, Cancelled = 4 }
     public enum ProjectStatus { Planning = 1, InProgress = 2, OnHold = 3, Completed = 4, Cancelled = 5 }

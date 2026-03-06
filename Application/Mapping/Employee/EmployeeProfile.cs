@@ -15,11 +15,14 @@ public class EmployeeProfile : Profile
 
         CreateMap<UpdateEmployeeDto, Domain.Models.Employee.Employee>();
         CreateMap<Domain.Models.Employee.Employee, UpdateEmployeeDto>();
-        
-        CreateMap<Domain.Models.Employee.Employee, GetEmployeeDto>();
+
+        CreateMap<Domain.Models.Employee.Employee, GetEmployeeDto>()
+            .ForMember(dest => dest.SectorName,
+                opt => opt.MapFrom(src => src.Sector != null ? src.Sector.Name : null));
+
         CreateMap<GetEmployeeDto, Domain.Models.Employee.Employee>();
-        
-        CreateMap<DeleteEmployeeCommand,Domain.Models.Employee.Employee>()
+
+        CreateMap<DeleteEmployeeCommand, Domain.Models.Employee.Employee>()
             .ForMember(dest => dest.IsDeleted, opt => opt.MapFrom(src => true));
     }
 }
