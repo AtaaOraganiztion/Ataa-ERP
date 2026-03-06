@@ -18,6 +18,7 @@ namespace Infrastructure.Database
     {
         public DbSet<Sector> Sectors { get; set; }
         public DbSet<Salary> Salaries { get; set; }
+        public DbSet<Domain.Models.Attendance.Attendance> Attendances { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
