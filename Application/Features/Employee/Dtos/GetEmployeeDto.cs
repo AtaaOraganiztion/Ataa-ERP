@@ -1,5 +1,4 @@
-﻿
-using Domain.Entities.Enums;
+﻿using Domain.Entities.Enums;
 
 namespace Application.Features.Employee.Dtos;
 
@@ -10,10 +9,11 @@ public record GetEmployeeDto(
     string? EmployeeEmail,
     string? EmployeeNumber,
     Ulid? SectorId,
+    string? SectorName,
     string? JobTitle,
     decimal? BaseSalary,
     DateTime? HireDate,
     EmploymentType? EmploymentType,
     EmployeeStatus? Status,
     string? Location
-    );
+);
