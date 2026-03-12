@@ -12,8 +12,7 @@ public class SalaryConfigurations : IEntityTypeConfiguration<Domain.Models.Salar
         builder
             .HasIndex(b => b.BaseSalary);
         builder
-            .HasIndex(b => b.NetSalary)
-            .IsUnique();   
+            .HasIndex(b => b.NetSalary);
         
         
         builder

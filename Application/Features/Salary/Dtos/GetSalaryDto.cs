@@ -4,6 +4,7 @@ using SharedKernel;
 namespace Application.Features.Salary.Dtos;
 
 public record GetSalaryDto(
+    Ulid Id,
     Ulid? EmployeeId,
     decimal? BaseSalary,
     decimal? Allowances,

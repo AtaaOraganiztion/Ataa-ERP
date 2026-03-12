@@ -8,6 +8,7 @@ public class GetSectorSpec : Specification<Domain.Models.Sector.Sector>
 {
     public GetSectorSpec(SectorFilter sectorFilter)
     {
+        Query.Include(x => x.Employees);
 
         if (!string.IsNullOrWhiteSpace(sectorFilter.Name))
             Query.Where(x => x.Name.Contains(sectorFilter.Name));
