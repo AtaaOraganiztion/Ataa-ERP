@@ -6,6 +6,7 @@ public record GetSectorDto(
     Ulid? Id = null,
     string? Name = null,
     string? Description = null,
-    Ulid? ParentId = null,
-    Ulid? ManagerUserId = null
+    Ulid? ParentSectorId = null,
+    Ulid? ManagerUserId = null,
+    int EmployeeCount = 0
 );
