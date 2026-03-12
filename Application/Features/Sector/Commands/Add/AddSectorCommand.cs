@@ -7,6 +7,6 @@ public record AddSectorCommand(
     string Name,
     string Description,
     Ulid? ParentId,
-    Ulid? ManagerId
+    Ulid? ManagerUserId
     
     ) : ICommand<Ulid>;
