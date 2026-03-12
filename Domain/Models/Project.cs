@@ -24,7 +24,7 @@ namespace Domain.Models
         public decimal ActualCost { get; set; }
         public decimal CompletionPercentage { get; set; }
 
-        public virtual Sector Sector { get; set; }
+        public virtual Sector.Sector Sector { get; set; }
         public virtual User ProjectManager { get; set; }
 
         public bool IsDeleted { get; set; }
