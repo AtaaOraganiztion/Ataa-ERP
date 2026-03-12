@@ -12,6 +12,7 @@ using SharedKernel.Common;
 using Microsoft.AspNetCore.Identity;
 using Domain.Models.Salary;
 using Domain.Models.Sector;
+using Domain.Models.Finance.Budget;
 
 namespace Infrastructure.Database
 {
@@ -19,6 +20,7 @@ namespace Infrastructure.Database
     {
         public DbSet<Sector> Sectors { get; set; }
         public DbSet<Salary> Salaries { get; set; }
+        public DbSet<Budget> budgets { get; set; }
         public DbSet<Domain.Models.Attendance.Attendance> Attendances { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

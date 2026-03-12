@@ -4,7 +4,7 @@ namespace Domain.FileUploads;
 
 public class FileUpload : Entity, IAuditableEntity
 {
-    public string Name { get; set; }
+    public string? Name { get; set; }
     public string Extension { get; set; }
     public string ContentType { get; set; }
     public long Size { get; set; }

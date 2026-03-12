@@ -19,7 +19,7 @@ namespace Domain.Models.Attendance
         public bool IsConfirmed { get; set; }
         public Ulid? ConfirmedBy { get; set; }
         public DateTime? ConfirmedDate { get; set; }
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         public virtual Employee.Employee Employee { get; set; }
         public virtual User Confirmer { get; set; }

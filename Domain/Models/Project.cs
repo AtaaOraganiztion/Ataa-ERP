@@ -26,6 +26,7 @@ namespace Domain.Models
 
         public virtual Sector.Sector Sector { get; set; }
         public virtual User ProjectManager { get; set; }
+        public virtual ICollection<Finance.Expense.Expense> Expenses { get; set; }
 
         public bool IsDeleted { get; set; }
         public DateTime DeletedOnUtc { get; set; }
