@@ -18,8 +18,8 @@ public class SectorProfile : Profile
         CreateMap<UpdateSectorDto, Domain.Models.Sector.Sector>();
         CreateMap<Domain.Models.Sector.Sector, UpdateSectorDto>();
 
-        CreateMap<Domain.Models.Sector.Sector, GetSectorDto>();
-
+        CreateMap<Domain.Models.Sector.Sector, GetSectorDto>()
+            .ForCtorParam(nameof(GetSectorDto.EmployeeCount), opt => opt.MapFrom(src => src.Employees != null ? src.Employees.Count : 0));
         CreateMap<GetSectorDto, Domain.Models.Sector.Sector>();
 
         CreateMap<DeleteSectorCommand, Domain.Models.Sector.Sector>()

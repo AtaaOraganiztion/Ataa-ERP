@@ -10,7 +10,6 @@ public class AddSalaryValidator : AbstractValidator<AddSalaryCommand>
     {
         RuleFor(x => x.EmployeeId).NotEmpty();
         RuleFor(x => x.BaseSalary).NotEmpty();
-        RuleFor(x => x.IsConfirmed).NotEmpty();
 
 
     }
