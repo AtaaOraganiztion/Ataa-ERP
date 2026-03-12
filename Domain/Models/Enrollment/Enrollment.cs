@@ -1,6 +1,6 @@
-﻿using Domain.Models;
-using SharedKernel.Common;
+﻿using SharedKernel.Common;
 using System;
+using Domain.Models.Project.Project;
 
 namespace Domain.Models
 {
@@ -12,7 +12,7 @@ namespace Domain.Models
         public Guid? ProjectId { get; set; }
         public bool IsConfirmed { get; set; }
 
-        public virtual Sector? Sector { get; set; }
-        public virtual Project.Project? Project { get; set; }
+        public virtual Sector.Sector? Sector { get; set; }
+        public virtual Project.Project.Project? Project { get; set; }
     }
 }

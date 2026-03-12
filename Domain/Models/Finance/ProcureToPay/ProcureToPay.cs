@@ -11,6 +11,6 @@ namespace Domain.Models.Finance.ProcureToPay
         public decimal UpdateBudget { get; set; }
         public Guid SectorId { get; set; }
 
-        public virtual Sector? Sector { get; set; }
+        public virtual Sector.Sector? Sector { get; set; }
     }
 }

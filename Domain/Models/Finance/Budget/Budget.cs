@@ -24,7 +24,7 @@ namespace Domain.Models.Finance.Budget
         public DateTime? ConfirmedDate { get; set; }
         public string Notes { get; set; }
 
-        public virtual Sector Sector { get; set; }
+        public virtual Sector.Sector Sector { get; set; }
         public virtual User Confirmer { get; set; }
         public virtual ICollection<BudgetAllocation> BudgetAllocations { get; set; }
 

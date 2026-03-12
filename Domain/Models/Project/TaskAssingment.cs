@@ -3,7 +3,7 @@ using SharedKernel;
 using SharedKernel.Common;
 using System;
 
-namespace Domain.Models.Project
+namespace Domain.Models.Project.Project
 {
     public class TaskAssignment : Entity, ISoftDeletableEntity
     {

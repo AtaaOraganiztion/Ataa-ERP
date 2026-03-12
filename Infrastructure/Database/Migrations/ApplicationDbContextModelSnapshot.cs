@@ -192,6 +192,69 @@ namespace Infrastructure.Database.Migrations
                     b.ToTable("Users", "Identity");
                 });
 
+            modelBuilder.Entity("Domain.Models.Attendance.Attendance", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<DateTime?>("CheckInTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("CheckOutTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ConfirmedBy")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<DateTime?>("ConfirmedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeletedOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<decimal>("HoursToWork")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<decimal>("HoursWorked")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfirmedBy");
+
+                    b.HasIndex("Date");
+
+                    b.HasIndex("EmployeeId", "Date");
+
+                    b.ToTable("Attendances", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Models.Employee.Employee", b =>
                 {
                     b.Property<string>("Id")
@@ -281,15 +344,11 @@ namespace Infrastructure.Database.Migrations
 
                     b.Property<string>("ConfirmedBy")
                         .HasMaxLength(26)
-                        .HasColumnType("nvarchar(26)");
+                        .HasColumnType("nvarchar(26)")
+                        .HasColumnName("ConfirmerId");
 
                     b.Property<DateTime?>("ConfirmedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ConfirmerId")
-                        .IsRequired()
-                        .HasMaxLength(26)
-                        .HasColumnType("nvarchar(26)");
 
                     b.Property<decimal>("Deductions")
                         .HasColumnType("decimal(18,2)");
@@ -331,14 +390,18 @@ namespace Infrastructure.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConfirmerId");
+                    b.HasIndex("BaseSalary");
+
+                    b.HasIndex("ConfirmedBy");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("NetSalary");
 
                     b.ToTable("Salaries");
                 });
 
-            modelBuilder.Entity("Domain.Models.Sector", b =>
+            modelBuilder.Entity("Domain.Models.Sector.Sector", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(26)
@@ -354,10 +417,6 @@ namespace Infrastructure.Database.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ManagerId")
-                        .HasMaxLength(26)
-                        .HasColumnType("nvarchar(26)");
-
                     b.Property<string>("ManagerUserId")
                         .HasMaxLength(26)
                         .HasColumnType("nvarchar(26)");
@@ -372,7 +431,7 @@ namespace Infrastructure.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ManagerId");
+                    b.HasIndex("ManagerUserId");
 
                     b.HasIndex("ParentSectorId");
 
@@ -520,9 +579,27 @@ namespace Infrastructure.Database.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("Domain.Models.Attendance.Attendance", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "Confirmer")
+                        .WithMany()
+                        .HasForeignKey("ConfirmedBy")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Domain.Models.Employee.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Confirmer");
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("Domain.Models.Employee.Employee", b =>
                 {
-                    b.HasOne("Domain.Models.Sector", "Sector")
+                    b.HasOne("Domain.Models.Sector.Sector", "Sector")
                         .WithMany("Employees")
                         .HasForeignKey("SectorId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -534,9 +611,8 @@ namespace Infrastructure.Database.Migrations
                 {
                     b.HasOne("Domain.Entities.User", "Confirmer")
                         .WithMany()
-                        .HasForeignKey("ConfirmerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ConfirmedBy")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Domain.Models.Employee.Employee", "Employee")
                         .WithMany("Salaries")
@@ -549,13 +625,13 @@ namespace Infrastructure.Database.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Domain.Models.Sector", b =>
+            modelBuilder.Entity("Domain.Models.Sector.Sector", b =>
                 {
                     b.HasOne("Domain.Entities.User", "Manager")
                         .WithMany()
-                        .HasForeignKey("ManagerId");
+                        .HasForeignKey("ManagerUserId");
 
-                    b.HasOne("Domain.Models.Sector", "ParentSector")
+                    b.HasOne("Domain.Models.Sector.Sector", "ParentSector")
                         .WithMany("ChildSectors")
                         .HasForeignKey("ParentSectorId");
 
@@ -642,7 +718,7 @@ namespace Infrastructure.Database.Migrations
                     b.Navigation("Salaries");
                 });
 
-            modelBuilder.Entity("Domain.Models.Sector", b =>
+            modelBuilder.Entity("Domain.Models.Sector.Sector", b =>
                 {
                     b.Navigation("ChildSectors");
 

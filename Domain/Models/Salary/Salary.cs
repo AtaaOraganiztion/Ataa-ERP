@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities;
 using SharedKernel;
 using SharedKernel.Common;
@@ -23,8 +24,8 @@ namespace Domain.Models.Salary
         public bool IsPaid { get; set; }
         public DateTime? PaidDate { get; set; }
 
-        public virtual Employee.Employee Employee { get; set; }
-        public virtual User Confirmer { get; set; }
+        public virtual Employee.Employee? Employee { get; set; }
+        public virtual User? Confirmer { get; set; }
         
         public bool IsDeleted { get; set; }
         public DateTime DeletedOnUtc { get; set; }

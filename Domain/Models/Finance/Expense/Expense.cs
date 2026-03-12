@@ -1,6 +1,5 @@
 ﻿using Domain.Entities;
 using Domain.Enums;
-using Domain.Models;
 using SharedKernel.Common;
 using System;
 
@@ -32,8 +31,8 @@ namespace Domain.Models.Finance.Expense
         public bool Confirm { get; set; }
         public string Notes { get; set; } = null!;
 
-        public virtual Sector? Sector { get; set; }
-        public virtual Project.Project? Project { get; set; }
+        public virtual Sector.Sector? Sector { get; set; }
+        public virtual Project.Project.Project? Project { get; set; }
         public virtual User? Requester { get; set; }
         public virtual User? Approver { get; set; }
         public virtual User? Confirmer { get; set; }

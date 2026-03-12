@@ -10,6 +10,6 @@ namespace Domain.Models.Finance.Order
         public int SectorNumber { get; set; }
         public Guid SectorId { get; set; }
 
-        public virtual Sector? Sector { get; set; }
+        public virtual Sector.Sector? Sector { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using Domain.Enums;
 using SharedKernel;
 using SharedKernel.Common;
 
-namespace Domain.Models.Project
+namespace Domain.Models.Project.Project
 {
     public class ProjectTask : Entity, ISoftDeletableEntity
     {

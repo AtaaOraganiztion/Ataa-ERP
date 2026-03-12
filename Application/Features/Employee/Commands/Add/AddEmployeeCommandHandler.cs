@@ -13,7 +13,7 @@ public class AddEmployeeCommandHandler(IMapper mapper, IRepository<Domain.Models
     {
         var employee = mapper.Map<Domain.Models.Employee.Employee>(request);
         await repository.AddAsync(employee, cancellationToken);
-        
+
         return Result.Success(employee.Id);
     }
 }
