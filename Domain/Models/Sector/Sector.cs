@@ -5,7 +5,7 @@ using Domain.Models.Employee;
 using SharedKernel;
 using SharedKernel.Common;
 
-namespace Domain.Models
+namespace Domain.Models.Sector
 {
     public class Sector : Entity,ISoftDeletableEntity
     {

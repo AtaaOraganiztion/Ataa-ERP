@@ -11,6 +11,7 @@ using SharedKernel;
 using SharedKernel.Common;
 using Microsoft.AspNetCore.Identity;
 using Domain.Models.Salary;
+using Domain.Models.Sector;
 
 namespace Infrastructure.Database
 {

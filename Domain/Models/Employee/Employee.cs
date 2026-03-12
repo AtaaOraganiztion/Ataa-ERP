@@ -24,7 +24,7 @@ namespace Domain.Models.Employee
         public EmployeeStatus Status { get; set; }
         public string Location { get; set; } = null!;
         
-        public virtual Sector Sector { get; set; }
+        public virtual Sector.Sector Sector { get; set; }
         public virtual IEnumerable<Domain.Models.Salary.Salary> Salaries { get; set; }
 
 
