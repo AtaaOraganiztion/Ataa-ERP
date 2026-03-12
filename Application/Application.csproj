@@ -7,6 +7,13 @@
         <OutputType>Library</OutputType>
     </PropertyGroup>
 
+	<ItemGroup>
+	  <Compile Remove="Features\Finance\Budget\Commands\Delte\**" />
+	  <Content Remove="Features\Finance\Budget\Commands\Delte\**" />
+	  <EmbeddedResource Remove="Features\Finance\Budget\Commands\Delte\**" />
+	  <None Remove="Features\Finance\Budget\Commands\Delte\**" />
+	</ItemGroup>
+
     <ItemGroup>
       <Folder Include="Features\Authintcation\" />
       <Folder Include="Features\Employee\" />
