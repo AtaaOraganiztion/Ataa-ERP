@@ -5,7 +5,7 @@ namespace Application.Features.Budget.Dtos;
 
 public record GetBudgetDto(
     Ulid Id,
-    Guid? SectorId,
+    Ulid? SectorId,
     int Year,
     decimal? EstimatedBudget,
     bool? IsConfirmed,

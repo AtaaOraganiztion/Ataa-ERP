@@ -5,7 +5,7 @@ using SharedKernel;
 
 namespace Application.Features.Identities.Specifications;
 
-public class UserByFilterSpec : Specification<User>
+public class UserByFilterSpec : Specification<Domain.Entities.User>
 {
     public UserByFilterSpec(UserFilter filter)
     {

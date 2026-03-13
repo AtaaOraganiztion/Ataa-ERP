@@ -6,13 +6,13 @@ using SharedKernel;
 
 namespace Application.Features.Identities.Users.UpdateUserRoles;
 
-public class UpdateUserRolesCommandHandler(UserManager<User> userManager, RoleManager<Role> roleManager)
+public class UpdateUserRolesCommandHandler(UserManager<Domain.Entities.User> userManager, RoleManager<Role> roleManager)
     : ICommandHandler<UpdateUserRolesCommand>
 {
     public async Task<Result> Handle(UpdateUserRolesCommand request, CancellationToken cancellationToken)
     {
         // get user
-        User? user = await userManager.FindByIdAsync(request.UserId.ToString());
+        Domain.Entities.User? user = await userManager.FindByIdAsync(request.UserId.ToString());
 
         if (user is null)
         {
@@ -72,7 +72,7 @@ public class UpdateUserRolesCommandHandler(UserManager<User> userManager, RoleMa
         return Result.Success(identityRoles);
     }
 
-    private async Task<Result> RemoveCurrentRolesAsync(User user, IList<string> currentRoles)
+    private async Task<Result> RemoveCurrentRolesAsync(Domain.Entities.User user, IList<string> currentRoles)
     {
         // remove current roles
         IdentityResult removeResult = await userManager.RemoveFromRolesAsync(user, currentRoles);

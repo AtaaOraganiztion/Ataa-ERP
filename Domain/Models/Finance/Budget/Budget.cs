@@ -9,7 +9,7 @@ namespace Domain.Models.Finance.Budget
 {
     public class Budget : BaseEntity
     {
-        public Guid? SectorId { get; set; }
+        public Ulid? SectorId { get; set; }
         public int Year { get; set; } 
         public decimal EstimatedBudget { get; set; }
         public bool IsConfirmed { get; set; }
