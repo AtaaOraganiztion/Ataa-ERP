@@ -8,8 +8,8 @@ namespace Domain.Models.Finance.Expense
 {
     public class Expense : BaseEntity
     {
-        public Guid SectorId { get; set; }
-        public Guid? ProjectId { get; set; }
+        public Ulid SectorId { get; set; }
+        public Ulid? ProjectId { get; set; }
         public decimal ExpenseAmount { get; set; }
         public int SectorNumber { get; set; }
         public decimal Amount { get; set; }
@@ -18,13 +18,13 @@ namespace Domain.Models.Finance.Expense
         public string Description { get; set; } = null!;
         public string Category { get; set; } = null!;
         public ExpenseStatus Status { get; set; }
-        public Guid? RequestedBy { get; set; }
-        public Guid? ApprovedBy { get; set; }
+        public Ulid? RequestedBy { get; set; }
+        public Ulid? ApprovedBy { get; set; }
         public DateTime? ApprovedDate { get; set; }
         public string RejectionReason { get; set; } = null!;
         public string ReceiptNumber { get; set; } = null!;
         public bool IsConfirmed { get; set; }
-        public Guid? ConfirmedBy { get; set; }
+        public Ulid? ConfirmedBy { get; set; }
         public DateTime? ConfirmedDate { get; set; }
         public bool IsPaid { get; set; }
         public DateTime? PaidDate { get; set; }
