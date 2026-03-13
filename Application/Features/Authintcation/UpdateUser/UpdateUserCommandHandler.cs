@@ -6,11 +6,11 @@ using SharedKernel;
 
 namespace Application.Features.Identities.Users.UpdateUser;
 
-public class UpdateUserCommandHandler(UserManager<User> userManager) : ICommandHandler<UpdateUserCommand>
+public class UpdateUserCommandHandler(UserManager<Domain.Entities.User> userManager) : ICommandHandler<UpdateUserCommand>
 {
     public async Task<Result> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
-        User? user = await userManager.FindByIdAsync(request.UserId.ToString());
+        Domain.Entities.User? user = await userManager.FindByIdAsync(request.UserId.ToString());
 
         if (user is null)
         {

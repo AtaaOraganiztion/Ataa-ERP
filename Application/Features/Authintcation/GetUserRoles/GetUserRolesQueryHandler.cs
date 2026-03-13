@@ -7,12 +7,12 @@ using SharedKernel;
 
 namespace Application.Features.Identities.Users.GetUserRoles;
 
-public class GetUserRolesQueryHandler(UserManager<User> userManager, RoleManager<Role> roleManager)
+public class GetUserRolesQueryHandler(UserManager<Domain.Entities.User> userManager, RoleManager<Role> roleManager)
     : IQueryHandler<GetUserRolesQuery, List<RoleDto>>
 {
     public async Task<Result<List<RoleDto>>> Handle(GetUserRolesQuery request, CancellationToken cancellationToken)
     {
-        User? user = await userManager.FindByIdAsync(request.UserId.ToString());
+        Domain.Entities.User? user = await userManager.FindByIdAsync(request.UserId.ToString());
 
         if (user is null)
         {

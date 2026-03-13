@@ -7,12 +7,12 @@ using SharedKernel;
 
 namespace Application.Features.Identities.Users.Register;
 
-public class RegisterUserCommandHandler(UserManager<User> userManager, IMediator mediator)
+public class RegisterUserCommandHandler(UserManager<Domain.Entities.User> userManager, IMediator mediator)
     : ICommandHandler<RegisterUserCommand>
 {
     public async Task<Result> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        var user = new User
+        var user = new Domain.Entities.User 
         {
             Id = Ulid.NewUlid(),
             Name = request.Name,

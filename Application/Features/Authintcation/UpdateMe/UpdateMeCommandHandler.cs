@@ -8,12 +8,12 @@ using SharedKernel;
 
 namespace Application.Features.Identities.Users.UpdateMe;
 
-public class UpdateMeCommandHandler(UserManager<User> userManager, IUserContext userContext) : ICommandHandler<UpdateMeCommand>
+public class UpdateMeCommandHandler(UserManager<Domain.Entities.User> userManager, IUserContext userContext) : ICommandHandler<UpdateMeCommand>
 {
     public async Task<Result> Handle(UpdateMeCommand request, CancellationToken cancellationToken)
     {
         Ulid userId = userContext.GetUserId();
-        User? user = await userManager.FindByIdAsync(userId.ToString());
+        Domain.Entities.User? user = await userManager.FindByIdAsync(userId.ToString());
 
         if (user is null)
         {

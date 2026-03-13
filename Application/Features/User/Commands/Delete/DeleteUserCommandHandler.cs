@@ -1,4 +1,4 @@
-﻿using Application.Abstractions.Messaging;
+﻿/*using Application.Abstractions.Messaging;
 using Application.Abstractions.Repositories;
 using Application.Features.User.Specifications;
 using Domain.Entities;
@@ -10,13 +10,13 @@ public class DeleteUserCommandHandler(IRepository<Domain.Entities.User> reposito
 {
     public async Task<Result<Ulid>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await repository.FirstOrDefaultAsync(new UserByIdSpec(request.Id), cancellationToken);
-        if (user is null)
+        var Budget = await repository.FirstOrDefaultAsync(new UserByIdSpec(request.Id), cancellationToken);
+        if (Budget is null)
         {
             return Result.Failure<Ulid>(Error.NotFound(UserMessageKeys.UserNotFound));
         }
 
-        await repository.DeleteAsync(user, cancellationToken);
-        return Result.Success(user.Id);
+        await repository.DeleteAsync(Budget, cancellationToken);
+        return Result.Success(Budget.Id);
     }
-}
+}*/

@@ -5,7 +5,7 @@ using Domain.Enums;
 namespace Application.Features.Budget.Dtos;
 
 public record UpdateBudgetDto(
-     Guid? SectorId,
+     Ulid? SectorId,
     int Year,
     decimal? EstimatedBudget,
     bool? IsConfirmed,
