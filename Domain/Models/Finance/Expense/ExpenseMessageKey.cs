@@ -1,4 +1,4 @@
-﻿namespace Domain.Models.Employee;
+﻿namespace Domain.Models.Finance.Expense;
 
 public class ExpenseMessageKeys
 {

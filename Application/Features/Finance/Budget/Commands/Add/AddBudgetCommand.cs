@@ -5,7 +5,7 @@ using Domain.Enums;
 namespace Application.Features.Budget.Commands.Add;
 
 public record AddBudgetCommand(
- Guid? SectorId,
+ Ulid? SectorId,
  int Year,
  decimal EstimatedBudget,
  bool IsConfirmed,
@@ -16,7 +16,7 @@ public record AddBudgetCommand(
  decimal RemainingAmount ,
  decimal BudgetLimit ,
  BudgetStatus Status,
- Guid? ConfirmedBy ,
+ Ulid? ConfirmedBy ,
  DateTime? ConfirmedDate,
  string Notes 
     ) : ICommand<Ulid>;
