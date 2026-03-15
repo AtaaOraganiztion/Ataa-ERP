@@ -1,6 +1,6 @@
 ﻿using Application.Abstractions.Messaging;
 using Application.Abstractions.Repositories;
-using Application.Features.Budget.Specifications;
+using Application.Features.finance.Budget.Specifications;
 using AutoMapper;
 using Domain.Models.Finance.Budget;
 
@@ -12,7 +12,7 @@ public class UpdateBudgetCommandHandler(IMapper mapper, IRepository<Domain.Model
 {
     public async Task<Result<Ulid>> Handle(UpdateBudgetCommand request, CancellationToken cancellationToken)
     {
-        var budget = await repository.FirstOrDefaultAsync(new BudgetByIdSpec(request.Id), cancellationToken);
+        var budget = await repository.FirstOrDefaultAsync(new GetBudgetByIdSpec(request.Id), cancellationToken);
         if (budget is null)
         {
             return Result.Failure<Ulid>(Error.NotFound(BudgetMessageKeys.BudgetNotFound));

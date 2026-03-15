@@ -1,10 +1,10 @@
 ﻿using Ardalis.Specification;
 
-namespace Application.Features.Budget.Specifications;
+namespace Application.Features.finance.Budget.Specifications;
 
-public class BudgetByIdSpec : Specification<Domain.Models.Finance.Budget.Budget>
+public class GetBudgetByIdSpec : Specification<Domain.Models.Finance.Budget.Budget>
 {
-    public BudgetByIdSpec(Ulid id)
+    public GetBudgetByIdSpec(Ulid id)
     {
         Query.Where(p => p.Id.Equals(id));
     }
