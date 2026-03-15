@@ -13,7 +13,6 @@ public class UserByFilterSpec : Specification<Domain.Entities.User>
             .AsNoTracking()
             .Search(u => u.Name, "%" + filter.Name + "%", !string.IsNullOrWhiteSpace(filter.Name))
             .Search(u => u.Email, "%" + filter.Email + "%", !string.IsNullOrWhiteSpace(filter.Email))
-            .Search(u => u.Phone, "%" + filter.PhoneNumber + "%", !string.IsNullOrWhiteSpace(filter.PhoneNumber))
             .OrderBy(u => u.Name)
             .Skip(filter.PageSize * (filter.PageIndex - 1))
             .Take(filter.PageSize);

@@ -1,3 +1,4 @@
+using Application.Features.Authintcation.DeleteUser;
 using Application.Features.Authintcation.GetUsers;
 using Application.Features.Identities.Dtos;
 using Application.Features.Identities.Roles.Dtos;
@@ -64,6 +65,14 @@ public class UsersController() : ApiBaseController
     public async Task<IActionResult> GetUsers([FromQuery] UserFilter filter)
     {
         Result<PaginatedResponse<UserDto>> result = await mediator.Send(new GetUsersQuery(filter));
+        return result.ToActionResult();
+    }
+    
+    [Authorize(Roles = nameof(Roles.Admin))]
+    [HttpDelete(Router.AuthinticationRouter.DeleteUser)]
+    public async Task<IActionResult> DeleteUser([FromRoute] Ulid userId)
+    {
+        Result result = await mediator.Send(new DeleteUserCommand(userId));
         return result.ToActionResult();
     }
 
