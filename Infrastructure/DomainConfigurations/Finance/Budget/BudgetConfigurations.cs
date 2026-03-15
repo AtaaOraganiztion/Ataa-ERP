@@ -11,8 +11,6 @@ public class BudgetConfigurations : IEntityTypeConfiguration<Domain.Models.Finan
     {
         builder.ToTable("Budget");
         builder
-            .HasIndex(b => b.CreatedBy);
-        builder
             .HasIndex(b => b.IsDeleted)
             .IsUnique();
         builder

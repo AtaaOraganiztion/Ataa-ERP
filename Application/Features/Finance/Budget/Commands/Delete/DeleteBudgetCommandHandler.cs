@@ -1,10 +1,11 @@
 ﻿using Application.Abstractions.Messaging;
 using Application.Abstractions.Repositories;
+using Application.Features.User.Commands.Delete;
 using Application.Features.User.Specifications;
 using Domain.Entities;
 using SharedKernel;
 
-namespace Application.Features.User.Commands.Delete;
+namespace Application.Features.finance.Budget.Commands.Delete;
 
 public class DeleteUserCommandHandler(IRepository<Domain.Entities.User> repository) : ICommandHandler<DeleteUserCommand, Ulid>
 {

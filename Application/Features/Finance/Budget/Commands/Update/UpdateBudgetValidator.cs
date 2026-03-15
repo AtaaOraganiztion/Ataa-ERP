@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Application.Features.Budget.Commands.Update;
+namespace Application.Features.finance.Budget.Commands.Update;
 
 public class UpdateBudgetValidator : AbstractValidator<UpdateBudgetCommand>
 {
