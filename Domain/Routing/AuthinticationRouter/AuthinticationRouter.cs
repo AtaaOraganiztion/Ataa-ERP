@@ -18,6 +18,7 @@ public partial class Router
         public const string UpdateMe = Root + "/profile-update";
         public const string UpdateUserRoles = Root + "/{userId}/roles";
         public const string GetUserRoles = Root + "/{userId}/roles";
+        public const string DeleteUser = Root + "/{userId}";
         
     }
 } 
