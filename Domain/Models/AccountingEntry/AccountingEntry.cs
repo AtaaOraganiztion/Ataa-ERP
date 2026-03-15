@@ -1,9 +1,10 @@
 ﻿using System;
+using SharedKernel;
 using SharedKernel.Common;
 
 namespace Domain.Entities
 {
-    public class AccountingEntry : BaseEntity
+    public class AccountingEntry : Entity,ISoftDeletableEntity
     {
         public string EntryNumber { get; set; } = null!;
         public DateTime EntryDate { get; set; }
@@ -16,5 +17,7 @@ namespace Domain.Entities
         public Guid? AccountingManagerId { get; set; }
 
         public virtual User? AccountingManager { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime DeletedOnUtc { get; set; }
     }
 }

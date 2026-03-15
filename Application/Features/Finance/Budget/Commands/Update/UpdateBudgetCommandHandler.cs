@@ -6,7 +6,7 @@ using Domain.Models.Finance.Budget;
 
 using SharedKernel;
 
-namespace Application.Features.Budget.Commands.Update;
+namespace Application.Features.finance.Budget.Commands.Update;
 
 public class UpdateBudgetCommandHandler(IMapper mapper, IRepository<Domain.Models.Finance.Budget.Budget> repository) : ICommandHandler<UpdateBudgetCommand, Ulid>
 {

@@ -1,6 +1,6 @@
 ﻿using Application.Abstractions.Messaging;
-using Application.Features.Budget.Dtos;
+using Application.Features.finance.Budget.Dtos;
 
-namespace Application.Features.Budget.Commands.Update;
+namespace Application.Features.finance.Budget.Commands.Update;
 
 public record UpdateBudgetCommand(Ulid Id, UpdateBudgetDto? BudgetDto) : ICommand<Ulid>;
