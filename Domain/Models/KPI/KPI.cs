@@ -1,12 +1,13 @@
 ﻿using System;
 using SharedKernel.Common;
 using Domain.Models.Employee;
+using SharedKernel;
 
-namespace Domain.Models
+namespace Domain.Models.KPI
 {
-    public class KPI : BaseEntity
+    public class KPI : Entity,ISoftDeletableEntity
     {
-        public Guid EmployeeId { get; set; }
+        public Ulid EmployeeId { get; set; }
         public string MetricName { get; set; } = null!;
         public decimal BonusAmount { get; set; }
         public decimal TargetValue { get; set; }
@@ -17,5 +18,7 @@ namespace Domain.Models
         public string Comments { get; set; } = null!;
 
         public virtual Employee.Employee? Employee { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime DeletedOnUtc { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using Task = System.Threading.Tasks.Task;
 namespace Application.Features.Identities.Users.Register;
 
 public class UserRegisteredDomainEventHandler(
-    UserManager<User> userManager,
+    UserManager<Domain.Entities.User> userManager,
     IEmailService emailService)
     : INotificationHandler<UserRegisteredDomainEvent>
 {
