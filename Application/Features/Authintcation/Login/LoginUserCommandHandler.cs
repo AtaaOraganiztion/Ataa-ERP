@@ -10,14 +10,14 @@ using Task = System.Threading.Tasks.Task;
 namespace Application.Features.Identities.Users.Login;
 
 public class LoginUserCommandHandler(
-    UserManager<User> userManager,
+    UserManager<Domain.Entities.User> userManager,
     ITokenProvider tokenProvider)
     : ICommandHandler<LoginUserCommand, TokenResponseDto>
 {
     public async Task<Result<TokenResponseDto>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
         // 1. Find the user by email
-        User? user = await userManager.FindByEmailAsync(request.Email);
+        Domain.Entities.User? user = await userManager.FindByEmailAsync(request.Email);
 
         // 2. Check if the user exists and if the password is correct
         if (user == null || !await userManager.CheckPasswordAsync(user, request.Password))
@@ -79,7 +79,7 @@ public class LoginUserCommandHandler(
         return Result.Failure<TokenResponseDto>(Error.Invalid(IdentityMessageKeys.SignInError));
     }
 
-    private async Task SetUserLastLoginDate(User user)
+    private async Task SetUserLastLoginDate(Domain.Entities.User user)
     {
         user.LastLoginDate = DateTime.UtcNow; 
         await userManager.UpdateAsync(user);

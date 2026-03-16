@@ -2,10 +2,10 @@
 using Domain.Entities.Enums;
 using Domain.Enums;
 
-namespace Application.Features.Budget.Dtos;
+namespace Application.Features.finance.Budget.Dtos;
 
 public record UpdateBudgetDto(
-     Guid? SectorId,
+     Ulid? SectorId,
     int Year,
     decimal? EstimatedBudget,
     bool? IsConfirmed,
@@ -16,7 +16,7 @@ public record UpdateBudgetDto(
     decimal? RemainingAmount,
     decimal? BudgetLimit,
     BudgetStatus? Status,
-    Guid? ConfirmedBy,
+    Ulid? ConfirmedBy,
     DateTime? ConfirmedDate,
     string? Notes
     );

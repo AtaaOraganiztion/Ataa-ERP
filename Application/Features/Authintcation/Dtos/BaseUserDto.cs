@@ -4,5 +4,4 @@ public record BaseUserDto(Ulid Id,
     string Name,
     string Email,
     bool EmailConfirmed,
-    string PhoneNumber,
-    string? ProfileImage);
+    string PhoneNumber);
