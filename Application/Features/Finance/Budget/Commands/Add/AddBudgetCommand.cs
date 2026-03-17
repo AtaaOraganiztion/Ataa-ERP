@@ -2,7 +2,7 @@
 using Domain.Entities.Enums;
 using Domain.Enums;
 
-namespace Application.Features.Budget.Commands.Add;
+namespace Application.Features.finance.Budget.Commands.Add;
 
 public record AddBudgetCommand(
  Ulid? SectorId,

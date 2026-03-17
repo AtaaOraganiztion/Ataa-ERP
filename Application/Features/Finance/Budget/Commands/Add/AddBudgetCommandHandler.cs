@@ -1,11 +1,12 @@
 ﻿using Application.Abstractions.Messaging;
 using Application.Abstractions.Repositories;
 using Application.Abstractions.Services;
+using Application.Features.finance.Budget.Commands.Add;
 using AutoMapper;
 using Domain.Email;
 using SharedKernel;
 
-namespace Application.Features.Budget.Commands.Add;
+namespace Application.Features.finance.Budget.Commands.Add;
 
 public class AddBudgetCommandHandler(IMapper mapper, IRepository<Domain.Models.Finance.Budget.Budget> repository, IEmailService emailService) : ICommandHandler<AddBudgetCommand, Ulid>
 {

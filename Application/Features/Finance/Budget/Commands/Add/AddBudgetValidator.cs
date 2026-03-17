@@ -1,7 +1,7 @@
 ﻿using Application.Features.Budget.Commands.Add;
 using FluentValidation;
 
-namespace Application.Features.Budget.Commands.Add;
+namespace Application.Features.finance.Budget.Commands.Add;
 
 public class AddBudgetValidator : AbstractValidator<AddBudgetCommand>
 {

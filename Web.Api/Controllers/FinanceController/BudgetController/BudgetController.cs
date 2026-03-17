@@ -1,16 +1,17 @@
-﻿using Application.Features.Budget.Commands.Add;
-using Application.Features.Budget.Commands.Delete;
-using Application.Features.Budget.Commands.Update;
-using Application.Features.Budget.Dtos;
-using Application.Features.Budget.Queries.GetAll;
-using Application.Features.Budget.Queries.GetById;
+﻿
+using Application.Features.finance.Budget.Commands.Add;
+using Application.Features.finance.Budget.Commands.Delete;
+using Application.Features.finance.Budget.Commands.Update;
+using Application.Features.finance.Budget.Dtos;
+using Application.Features.finance.Budget.Queries.GetAll;
+using Application.Features.finance.Budget.Queries.GetById;
 using Domain.Routing.BaseRouter;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel;
 using Web.Api.Controllers.BaseController;
 using Web.Api.Extensions;
 
-namespace Web.Api.Controllers.BudgetController;
+namespace Web.Api.Controllers.FinanceController.BudgetController;
 
 public class BudgetController() : ApiBaseController
 {

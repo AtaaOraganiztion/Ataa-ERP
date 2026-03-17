@@ -1,9 +1,10 @@
-﻿using Application.Features.Budget.Commands.Add;
-using Application.Features.Budget.Commands.Delete;
-using Application.Features.Budget.Dtos;
+﻿
+using Application.Features.finance.Budget.Commands.Add;
+using Application.Features.finance.Budget.Commands.Delete;
+using Application.Features.finance.Budget.Dtos;
 using AutoMapper;
 
-namespace Application.Mapping.Budget;
+namespace Application.Mapping.Finance.Budget;
 
 public class BudgetProfile : Profile
 {

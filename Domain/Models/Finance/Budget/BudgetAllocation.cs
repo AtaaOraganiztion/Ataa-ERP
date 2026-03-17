@@ -2,7 +2,7 @@
 using SharedKernel;
 using Domain.Models.Finance.Budget;
 
-namespace Domain.Models.Finance
+namespace Domain.Models.Finance.Budget
 {
     public class BudgetAllocation : Entity, ISoftDeletableEntity
     {

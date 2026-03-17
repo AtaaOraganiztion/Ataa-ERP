@@ -3,11 +3,11 @@ using SharedKernel.Common;
 using Domain.Models.Employee;
 using SharedKernel;
 
-namespace Domain.Models
+namespace Domain.Models.KPI
 {
     public class KPI : Entity,ISoftDeletableEntity
     {
-        public Guid EmployeeId { get; set; }
+        public Ulid EmployeeId { get; set; }
         public string MetricName { get; set; } = null!;
         public decimal BonusAmount { get; set; }
         public decimal TargetValue { get; set; }
