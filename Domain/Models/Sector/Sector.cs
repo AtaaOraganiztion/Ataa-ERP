@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Domain.Entities;
 using Domain.Models.Employee;
 using SharedKernel;
-using SharedKernel.Common;
-
 namespace Domain.Models.Sector
 {
     public class Sector : Entity,ISoftDeletableEntity

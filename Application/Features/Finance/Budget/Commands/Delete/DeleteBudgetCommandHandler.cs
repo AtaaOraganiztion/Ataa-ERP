@@ -1,5 +1,7 @@
 ﻿using Application.Abstractions.Messaging;
 using Application.Abstractions.Repositories;
+using Application.Features.Budget.Commands.Delete;
+using Application.Features.Budget.Specifications;
 using Application.Features.finance.Budget.Specifications;
 using Domain.Entities;
 using Domain.Models.Finance.Budget;
@@ -11,7 +13,7 @@ public class DeleteBudgetCommandHandler(IRepository<Domain.Models.Finance.Budget
 {
     public async Task<Result<Ulid>> Handle(DeleteBudgetCommand request, CancellationToken cancellationToken)
     {
-        var user = await repository.FirstOrDefaultAsync(new GetBudgetByIdSpec(request.Id), cancellationToken);
+        var user = await repository.FirstOrDefaultAsync(new BudgetByIdSpec(request.Id), cancellationToken);
         if (user is null)
         {
             return Result.Failure<Ulid>(Error.NotFound(BudgetMessageKeys.BudgetNotFound));

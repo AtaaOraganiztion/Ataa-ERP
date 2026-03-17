@@ -1,14 +1,14 @@
 ﻿using Domain.Entities;
 using Domain.Enums;
 using Domain.Models;
-using SharedKernel.Common;
 using System;
 using System.Collections.Generic;
 using SharedKernel;
+using SharedKernel.Common;
 
 namespace Domain.Models.Finance.Budget
 {
-    public class Budget : Entity,ISoftDeletableEntity
+    public class Budget : BaseEntity,ISoftDeletableEntity
     {
         public Ulid? SectorId { get; set; }
         public int Year { get; set; } 
