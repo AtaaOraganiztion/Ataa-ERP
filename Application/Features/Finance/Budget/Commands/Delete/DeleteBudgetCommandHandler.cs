@@ -2,11 +2,12 @@
 using Application.Abstractions.Repositories;
 using Application.Features.Budget.Commands.Delete;
 using Application.Features.Budget.Specifications;
+using Application.Features.finance.Budget.Specifications;
 using Domain.Entities;
 using Domain.Models.Finance.Budget;
 using SharedKernel;
 
-namespace Application.Features.Finance.Budget.Commands.Delete;
+namespace Application.Features.finance.Budget.Commands.Delete;
 
 public class DeleteBudgetCommandHandler(IRepository<Domain.Models.Finance.Budget.Budget> repository) : ICommandHandler<DeleteBudgetCommand, Ulid>
 {

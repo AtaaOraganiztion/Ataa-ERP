@@ -1,12 +1,13 @@
 ﻿using Domain.Entities;
+using Domain.Models.Finance.Budget;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.DomainConfigurations.Finance.Budget;
 
-public class BudgetAllocationsConfigurations : IEntityTypeConfiguration<Domain.Models.Finance.BudgetAllocation>
+public class BudgetAllocationsConfigurations : IEntityTypeConfiguration<BudgetAllocation>
 {
-    public void Configure(EntityTypeBuilder<Domain.Models.Finance.BudgetAllocation> builder)
+    public void Configure(EntityTypeBuilder<BudgetAllocation> builder)
     {
         builder.ToTable("BudgetAllocation");
         builder

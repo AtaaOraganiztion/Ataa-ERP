@@ -15,7 +15,6 @@
 	</ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Authintcation\" />
       <Folder Include="Features\Employee\" />
       <Folder Include="Features\Salary\Commands\Update\" />
       <Folder Include="Services\" />

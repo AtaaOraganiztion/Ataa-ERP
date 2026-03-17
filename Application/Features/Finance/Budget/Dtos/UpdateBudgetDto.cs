@@ -2,7 +2,7 @@
 using Domain.Entities.Enums;
 using Domain.Enums;
 
-namespace Application.Features.Budget.Dtos;
+namespace Application.Features.finance.Budget.Dtos;
 
 public record UpdateBudgetDto(
      Ulid? SectorId,
