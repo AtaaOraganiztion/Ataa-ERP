@@ -1,13 +1,14 @@
 ﻿using Domain.Entities;
 using Domain.Enums;
 using Domain.Models;
-using SharedKernel.Common;
 using System;
 using System.Collections.Generic;
+using SharedKernel;
+using SharedKernel.Common;
 
 namespace Domain.Models.Finance.Budget
 {
-    public class Budget : BaseEntity
+    public class Budget : BaseEntity,ISoftDeletableEntity
     {
         public Ulid? SectorId { get; set; }
         public int Year { get; set; } 
@@ -20,7 +21,7 @@ namespace Domain.Models.Finance.Budget
         public decimal RemainingAmount { get; set; }
         public decimal BudgetLimit { get; set; }
         public BudgetStatus Status { get; set; }
-        public Guid? ConfirmedBy { get; set; }
+        public Ulid? ConfirmedBy { get; set; }
         public DateTime? ConfirmedDate { get; set; }
         public string Notes { get; set; }
 
@@ -33,5 +34,8 @@ namespace Domain.Models.Finance.Budget
         {
             BudgetAllocations = new HashSet<BudgetAllocation>();
         }
+
+        public bool IsDeleted { get; set; }
+        public DateTime DeletedOnUtc { get; set; }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using Domain.Entities;
 using Domain.Enums;
 using Domain.Models;
-using SharedKernel.Common;
 using System;
+using SharedKernel;
 
 namespace Domain.Models.Finance.Expense
 {
-    public class Expense : BaseEntity
+    public class Expense : Entity,ISoftDeletableEntity
     {
         public Ulid SectorId { get; set; }
         public Ulid? ProjectId { get; set; }
@@ -37,5 +37,7 @@ namespace Domain.Models.Finance.Expense
         public virtual User? Requester { get; set; }
         public virtual User? Approver { get; set; }
         public virtual User? Confirmer { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime DeletedOnUtc { get; set; }
     }
 }

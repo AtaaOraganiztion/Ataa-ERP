@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities;
 using SharedKernel;
-using SharedKernel.Common;
 
 namespace Domain.Models.Salary
 {
