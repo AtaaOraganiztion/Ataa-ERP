@@ -1,6 +1,5 @@
 ﻿using System;
 using SharedKernel;
-using SharedKernel.Common;
 using Domain.Models.Finance.Budget;
 
 namespace Domain.Models.Finance.Budget

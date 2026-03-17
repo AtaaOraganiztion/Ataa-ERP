@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Domain.Entities.Enums;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
-using SharedKernel.Common;
 
 namespace Domain.Entities
 {
     public class User : IdentityUser<Ulid>
     {
+
         public string? Name { get; set; }
         public string? Phone { get; set; }
         public string? NID { get; set; }
