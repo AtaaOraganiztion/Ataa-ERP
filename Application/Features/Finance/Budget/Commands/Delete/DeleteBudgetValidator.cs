@@ -1,6 +1,6 @@
-﻿using FluentValidation;
+using FluentValidation;
 
-namespace Application.Features.finance.Budget.Commands.Delete;
+namespace Application.Features.Finance.Budget.Commands.Delete;
 
 public class DeleteBudgetValidator : AbstractValidator<DeleteBudgetCommand>
 {

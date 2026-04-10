@@ -1,7 +1,7 @@
-﻿using Application.Features.finance.Budget.Queries.GetById;
+using Application.Features.Finance.Budget.Queries.GetById;
 using FluentValidation;
 
-namespace Application.Features.finance.Budget.Queries.GetById;
+namespace Application.Features.Finance.Budget.Queries.GetById;
 
 public class GetBudgetByIdQueryValidator : AbstractValidator<GetBudgetByIdQuery>
 {

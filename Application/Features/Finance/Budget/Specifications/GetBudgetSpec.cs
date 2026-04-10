@@ -1,9 +1,9 @@
-﻿using Application.Features.finance.Budget.Dtos;
+using Application.Features.Finance.Budget.Dtos;
 using Ardalis.Specification;
 using Domain.Entities.Enums;
 using Domain.Enums;
 
-namespace Application.Features.finance.Budget.Specifications;
+namespace Application.Features.Finance.Budget.Specifications;
 
 public class GetBudgetSpec : Specification<Domain.Models.Finance.Budget.Budget>
 {
@@ -48,7 +48,7 @@ public class GetBudgetSpec : Specification<Domain.Models.Finance.Budget.Budget>
             Query.Where(x => x.ConfirmedBy == confirmedBy);
 
         if (budgetFilter.ConfirmedDate.HasValue)
-            Query.Where(x => x.ConfirmedDate.Value== budgetFilter.ConfirmedDate.Value.Date);
+            Query.Where(x => x.ConfirmedDate.HasValue && x.ConfirmedDate.Value.Date == budgetFilter.ConfirmedDate.Value.Date);
 
         if (!string.IsNullOrWhiteSpace(budgetFilter.Notes))
             Query.Where(x => x.Notes!.Contains(budgetFilter.Notes));

@@ -1,12 +1,12 @@
-﻿using Application.Abstractions.Messaging;
+using Application.Abstractions.Messaging;
 using Application.Abstractions.Repositories;
-using Application.Features.finance.Budget.Dtos;
-using Application.Features.finance.Budget.Specifications;
+using Application.Features.Finance.Budget.Dtos;
+using Application.Features.Finance.Budget.Specifications;
 using AutoMapper;
 using Domain.Models.Finance.Budget;
 using SharedKernel;
 
-namespace Application.Features.finance.Budget.Queries.GetById;
+namespace Application.Features.Finance.Budget.Queries.GetById;
 
 public class GetBudgetByIdQueryHandler(IRepository<Domain.Models.Finance.Budget.Budget> repository, IMapper mapper) : IQueryHandler<GetBudgetByIdQuery, GetBudgetDto>
 {

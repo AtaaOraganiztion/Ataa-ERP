@@ -1,12 +1,12 @@
-﻿using Application.Abstractions.Messaging;
+using Application.Abstractions.Messaging;
 using Application.Abstractions.Repositories;
-using Application.Features.finance.Budget.Specifications;
+using Application.Features.Finance.Budget.Specifications;
 using AutoMapper;
 using Domain.Models.Finance.Budget;
 
 using SharedKernel;
 
-namespace Application.Features.finance.Budget.Commands.Update;
+namespace Application.Features.Finance.Budget.Commands.Update;
 
 public class UpdateBudgetCommandHandler(IMapper mapper, IRepository<Domain.Models.Finance.Budget.Budget> repository) : ICommandHandler<UpdateBudgetCommand, Ulid>
 {
