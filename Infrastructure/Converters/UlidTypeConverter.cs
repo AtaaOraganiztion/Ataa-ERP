@@ -14,7 +14,7 @@ public class UlidTypeConverter : TypeConverter
     {
         if (value is string stringValue)
         {
-            if (string.IsNullOrEmpty(stringValue))
+            if (string.IsNullOrEmpty(stringValue) || stringValue == "string")
                 return Ulid.Empty;
 
             // ULID must be 26 chars and valid base32

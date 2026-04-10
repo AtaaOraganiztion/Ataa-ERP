@@ -1,6 +1,6 @@
-﻿using Ardalis.Specification;
+using Ardalis.Specification;
 
-namespace Application.Features.finance.Budget.Specifications;
+namespace Application.Features.Finance.Budget.Specifications;
 
 public class GetBudgetByIdSpec : Specification<Domain.Models.Finance.Budget.Budget>
 {

@@ -1,8 +1,8 @@
-﻿using Application.Abstractions.Messaging;
+using Application.Abstractions.Messaging;
 using Domain.Entities.Enums;
 using Domain.Enums;
 
-namespace Application.Features.finance.Budget.Commands.Add;
+namespace Application.Features.Finance.Budget.Commands.Add;
 
 public record AddBudgetCommand(
  Ulid? SectorId,
@@ -18,5 +18,5 @@ public record AddBudgetCommand(
  BudgetStatus Status,
  Ulid? ConfirmedBy ,
  DateTime? ConfirmedDate,
- string Notes 
+ string? Notes 
     ) : ICommand<Ulid>;

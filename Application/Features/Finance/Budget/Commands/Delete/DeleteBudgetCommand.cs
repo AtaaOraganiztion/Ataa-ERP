@@ -1,5 +1,5 @@
-﻿using Application.Abstractions.Messaging;
+using Application.Abstractions.Messaging;
 
-namespace Application.Features.finance.Budget.Commands.Delete;
+namespace Application.Features.Finance.Budget.Commands.Delete;
 
 public record DeleteBudgetCommand(Ulid Id) : ICommand<Ulid>;

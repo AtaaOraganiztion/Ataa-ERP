@@ -23,7 +23,7 @@ namespace Domain.Models.Finance.Budget
         public BudgetStatus Status { get; set; }
         public Ulid? ConfirmedBy { get; set; }
         public DateTime? ConfirmedDate { get; set; }
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         public virtual Sector.Sector? Sector { get; set; }
         public virtual User? Confirmer { get; set; }

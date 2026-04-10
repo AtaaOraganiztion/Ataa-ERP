@@ -1,7 +1,7 @@
-﻿using Application.Abstractions.Messaging;
-using Application.Features.finance.Budget.Dtos;
+using Application.Abstractions.Messaging;
+using Application.Features.Finance.Budget.Dtos;
 
 
-namespace Application.Features.finance.Budget.Queries.GetById;
+namespace Application.Features.Finance.Budget.Queries.GetById;
 
 public record GetBudgetByIdQuery(Ulid Id) : IQuery<GetBudgetDto>;

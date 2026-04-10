@@ -14,7 +14,7 @@ public class UlidJsonConverter : JsonConverter<Ulid>
         if (reader.TokenType == JsonTokenType.String)
         {
             string? stringValue = reader.GetString();
-            if (string.IsNullOrEmpty(stringValue))
+            if (string.IsNullOrEmpty(stringValue) || stringValue == "string")
                 return Ulid.Empty;
 
             return Ulid.Parse(stringValue);
