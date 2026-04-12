@@ -13,9 +13,20 @@ public class BudgetProfile : Profile
         // Add
         CreateMap<AddBudgetCommand, Domain.Models.Finance.Budget.Budget>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Ulid.NewUlid()))
+            .ForMember(dest => dest.SectorId, opt => opt.MapFrom(src => src.SectorId))
+            .ForMember(dest => dest.ConfirmedBy, opt => opt.MapFrom(src => src.ConfirmedBy))
+            .ForMember(dest => dest.Year, opt => opt.MapFrom(src => src.Year))
+            .ForMember(dest => dest.EstimatedBudget, opt => opt.MapFrom(src => src.EstimatedBudget))
             .ForMember(dest => dest.IsConfirmed, opt => opt.MapFrom(src => src.IsConfirmed))
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status));
-
+            .ForMember(dest => dest.Limit, opt => opt.MapFrom(src => src.Limit))
+            .ForMember(dest => dest.TotalBudget, opt => opt.MapFrom(src => src.TotalBudget))
+            .ForMember(dest => dest.AllocatedAmount, opt => opt.MapFrom(src => src.AllocatedAmount))
+            .ForMember(dest => dest.SpentAmount, opt => opt.MapFrom(src => src.SpentAmount))
+            .ForMember(dest => dest.RemainingAmount, opt => opt.MapFrom(src => src.RemainingAmount))
+            .ForMember(dest => dest.BudgetLimit, opt => opt.MapFrom(src => src.BudgetLimit))
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+            .ForMember(dest => dest.ConfirmedDate, opt => opt.MapFrom(src => src.ConfirmedDate))
+            .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes));
         // Update
         CreateMap<UpdateBudgetDto, Domain.Models.Finance.Budget.Budget>()
             .ForMember(dest => dest.EstimatedBudget, opt => opt.MapFrom(src => src.EstimatedBudget ?? default))

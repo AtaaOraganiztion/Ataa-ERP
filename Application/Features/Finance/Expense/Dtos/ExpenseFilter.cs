@@ -5,6 +5,7 @@ using Domain.Enums;
 namespace Application.Features.Finance.Expense.Dtos;
 
 public record ExpenseFilter(
+     Ulid id,
      Ulid SectorId,
      Ulid? ProjectId,
      decimal ExpenseAmount,
@@ -12,14 +13,14 @@ public record ExpenseFilter(
      decimal Amount,
      ExpenseType ExpenseType,
      DateTime ExpenseDate,
-     string Description,
-     string Category,
+     string? Description,
+     string? Category,
      ExpenseStatus Status,
      Ulid? RequestedBy,
      Ulid? ApprovedBy,
      DateTime? ApprovedDate,
-     string RejectionReason,
-     string ReceiptNumber,
+     string? RejectionReason,
+     string? ReceiptNumber,
      bool IsConfirmed,
      Ulid? ConfirmedBy,
      DateTime? ConfirmedDate,
