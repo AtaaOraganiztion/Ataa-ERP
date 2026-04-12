@@ -10,12 +10,8 @@ public class BudgetConfigurations : IEntityTypeConfiguration<Domain.Models.Finan
     public void Configure(EntityTypeBuilder<Domain.Models.Finance.Budget.Budget> builder)
     {
         builder.ToTable("Budget");
-        builder
-            .HasIndex(b => b.IsDeleted)
-            .IsUnique();
-        builder
-            .HasIndex(b => b.SectorId)
-            .IsUnique();
+
+  
         builder
             .HasIndex(b => b.Status);
 

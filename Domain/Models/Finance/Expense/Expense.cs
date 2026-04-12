@@ -15,14 +15,14 @@ namespace Domain.Models.Finance.Expense
         public decimal Amount { get; set; }
         public ExpenseType ExpenseType { get; set; }
         public DateTime ExpenseDate { get; set; }
-        public string Description { get; set; } = null!;
-        public string Category { get; set; } = null!;
+        public string? Description { get; set; } = null!;
+        public string? Category { get; set; } = null!;
         public ExpenseStatus Status { get; set; }
         public Ulid? RequestedBy { get; set; }
         public Ulid? ApprovedBy { get; set; }
         public DateTime? ApprovedDate { get; set; }
-        public string RejectionReason { get; set; } = null!;
-        public string ReceiptNumber { get; set; } = null!;
+        public string? RejectionReason { get; set; } = null!;
+        public string? ReceiptNumber { get; set; } = null!;
         public bool IsConfirmed { get; set; }
         public Ulid? ConfirmedBy { get; set; }
         public DateTime? ConfirmedDate { get; set; }

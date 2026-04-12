@@ -4,6 +4,7 @@ using Domain.Enums;
 namespace Application.Features.Finance.Expense.Dtos;
 
 public record GetExpenseDto(
+    Ulid Id,
      Ulid SectorId,
      Ulid? ProjectId,
      decimal ExpenseAmount,
@@ -11,14 +12,14 @@ public record GetExpenseDto(
      decimal Amount,
      ExpenseType ExpenseType,
      DateTime ExpenseDate,
-     string Description,
-     string Category,
+     string? Description,
+     string? Category,
      ExpenseStatus Status,
      Ulid? RequestedBy,
      Ulid? ApprovedBy,
      DateTime? ApprovedDate,
-     string RejectionReason,
-     string ReceiptNumber,
+     string? RejectionReason,
+     string? ReceiptNumber,
      bool IsConfirmed,
      Ulid? ConfirmedBy,
      DateTime? ConfirmedDate,

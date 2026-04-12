@@ -8,5 +8,6 @@ public class UpdateExpenseValidator : AbstractValidator<UpdateExpenseCommand>
     {
         RuleFor(x => x.Id)
             .NotEmpty();
+         
     }
 }

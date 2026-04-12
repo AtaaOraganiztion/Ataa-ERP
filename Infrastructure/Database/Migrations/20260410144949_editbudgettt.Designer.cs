@@ -4,6 +4,7 @@ using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260410144949_editbudgettt")]
+    partial class editbudgettt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,6 +68,7 @@ namespace Infrastructure.Database.Migrations
                         .HasColumnType("nvarchar(26)");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -74,6 +78,7 @@ namespace Infrastructure.Database.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ModifiedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedDate")
@@ -345,6 +350,7 @@ namespace Infrastructure.Database.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -367,6 +373,7 @@ namespace Infrastructure.Database.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ModifiedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedDate")
@@ -400,7 +407,12 @@ namespace Infrastructure.Database.Migrations
 
                     b.HasIndex("ConfirmedBy");
 
-                    b.HasIndex("SectorId");
+                    b.HasIndex("IsDeleted")
+                        .IsUnique();
+
+                    b.HasIndex("SectorId")
+                        .IsUnique()
+                        .HasFilter("[SectorId] IS NOT NULL");
 
                     b.HasIndex("Status");
 
@@ -414,6 +426,7 @@ namespace Infrastructure.Database.Migrations
                         .HasColumnType("nvarchar(26)");
 
                     b.Property<decimal?>("AllocatedAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("BudgetId")
@@ -422,26 +435,38 @@ namespace Infrastructure.Database.Migrations
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DeletedOnUtc")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<decimal?>("SpentAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BudgetId");
+                    b.HasIndex("AllocatedAmount");
 
-                    b.ToTable("BudgetAllocation");
+                    b.HasIndex("BudgetId")
+                        .IsUnique()
+                        .HasFilter("[BudgetId] IS NOT NULL");
+
+                    b.HasIndex("Category")
+                        .IsUnique();
+
+                    b.HasIndex("Description");
+
+                    b.HasIndex("SpentAmount");
+
+                    b.ToTable("BudgetAllocation", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Finance.Expense.Expense", b =>
@@ -462,6 +487,7 @@ namespace Infrastructure.Database.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Category")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Confirm")
@@ -478,6 +504,7 @@ namespace Infrastructure.Database.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("ExpenseAmount")
@@ -515,9 +542,11 @@ namespace Infrastructure.Database.Migrations
                         .HasColumnType("nvarchar(26)");
 
                     b.Property<string>("ReceiptNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RejectionReason")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RequestedBy")
@@ -981,7 +1010,8 @@ namespace Infrastructure.Database.Migrations
                 {
                     b.HasOne("Domain.Models.Finance.Budget.Budget", "Budget")
                         .WithMany("BudgetAllocations")
-                        .HasForeignKey("BudgetId");
+                        .HasForeignKey("BudgetId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Budget");
                 });
