@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Domain.Entities.Enums;
 using Domain.Enums;
+using Domain.Models.Attendance;
 using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Entities
@@ -16,9 +17,11 @@ namespace Domain.Entities
         public Gender? Gender { get; set; }
         public UserStatus Status { get; set; }
         public DateTime? LastLoginDate { get; set; }
+        
 
         // Navigation Properties
         public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<Attendance>? Attendances { get; set; }
 
         // Navigation to Employee for the one-to-one relationship
         public virtual Domain.Models.Employee.Employee? Employee { get; set; }

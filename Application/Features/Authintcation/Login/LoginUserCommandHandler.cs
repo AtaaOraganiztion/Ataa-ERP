@@ -5,7 +5,7 @@ using Domain.Entities;
 using Domain.Identities;
 using Microsoft.AspNetCore.Identity;
 using SharedKernel;
-using Task = System.Threading.Tasks.Task;
+using System.Security.Claims;
 
 namespace Application.Features.Identities.Users.Login;
 
@@ -16,44 +16,42 @@ public class LoginUserCommandHandler(
 {
     public async Task<Result<TokenResponseDto>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
-        // 1. Find the user by email
-        Domain.Entities.User? user = await userManager.FindByEmailAsync(request.Email);
+        // 1. Find user
+        var user = await userManager.FindByEmailAsync(request.Email);
 
-        // 2. Check if the user exists and if the password is correct
+        // 2. Validate credentials
         if (user == null || !await userManager.CheckPasswordAsync(user, request.Password))
         {
             return Result.Failure<TokenResponseDto>(Error.Unauthorized(IdentityMessageKeys.InvalidCredentials));
         }
 
-        // 3. Generate access token to get expiry info
-        (string accessToken, int expiresIn, string tokenType) =
-            tokenProvider.CreateAccessToken(user);
-
-        // 4. Get user roles (take the first role or empty)
+        // 3. Get roles ✅ IMPORTANT
         var roles = await userManager.GetRolesAsync(user);
-        string role = roles != null && roles.Any() ? roles.First() : string.Empty;
 
-        // 5. Update the user's last login date
+        // 4. Generate token WITH roles ✅
+        (string accessToken, int expiresIn, string tokenType) =
+            tokenProvider.CreateAccessToken(user, roles);
+
+        // 5. Update last login
         await SetUserLastLoginDate(user);
 
-        // Build user info DTO to include full user data in the response
+        // 6. Build response
         var userInfo = new UserInfoDto(
             user.Id,
             user.Name ?? string.Empty,
             user.Email ?? string.Empty,
             user.EmailConfirmed,
             user.PhoneNumber ?? user.Phone ?? string.Empty,
-            null, // ProfileImage not available
+            null,
             user.LockoutEnabled,
             user.LockoutEnd,
             user.LastLoginDate,
             user.NID,
             user.Age ?? 0,
             user.Gender,
-            roles ?? new List<string>()
+            roles // ✅ now always filled
         );
 
-        // 6. Return token + user info
         return Result.Success(new TokenResponseDto(
             accessToken,
             expiresIn,
@@ -62,26 +60,10 @@ public class LoginUserCommandHandler(
             userInfo
         ));
     }
-    
-
-    private static Result<TokenResponseDto> HandleSignInResult(SignInResult result)
-    {
-        if (result.IsLockedOut)
-        {
-            return Result.Failure<TokenResponseDto>(Error.Invalid(IdentityMessageKeys.LockoutEnabled));
-        }
-
-        if (result.IsNotAllowed)
-        {
-            return Result.Failure<TokenResponseDto>(Error.Invalid(IdentityMessageKeys.EmailNotConfirmed));
-        }
-
-        return Result.Failure<TokenResponseDto>(Error.Invalid(IdentityMessageKeys.SignInError));
-    }
 
     private async Task SetUserLastLoginDate(Domain.Entities.User user)
     {
-        user.LastLoginDate = DateTime.UtcNow; 
+        user.LastLoginDate = DateTime.UtcNow;
         await userManager.UpdateAsync(user);
     }
 }

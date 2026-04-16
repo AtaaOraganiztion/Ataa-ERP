@@ -4,13 +4,39 @@
     "Name": "Admin",
     "NormalizedName": "ADMIN",
     "Description": "Administrator role with full system access",
-    "ConcurrencyStamp": "3a7607d0-34ce-48f7-ae5e-efe0517d2339"
+    "ConcurrencyStamp": "3a7607d0-34ce-48f7-ae5e-efe0517d2339",
+    "IsSystemRole": true
   },
   {
     "Id": "01JVMNWDT4SQNEDV801EXWHFGE",
     "Name": "User",
     "NormalizedName": "USER",
     "Description": "Standard user role with limited access",
-    "ConcurrencyStamp": "68d7297a-7794-4aea-960a-b7a22b83610e"
+    "ConcurrencyStamp": "68d7297a-7794-4aea-960a-b7a22b83610e",
+    "IsSystemRole": false
+  },
+  {
+    "Id": "01JVMWURIMCNHIHREUXG9Z5KX7",
+    "Name": "Designer",
+    "NormalizedName": "DESIGNER",
+    "Description": "Role for users responsible for designing products or services",
+    "ConcurrencyStamp": "d1c8e5b2-9f3a-4c6b-8e5f-2a1b3c4d5678",
+    "IsSystemRole": false
+  },
+  {
+    "Id": "01JVMWURIMCNHIHREUXG9Z5KX8",
+    "Name": "FinancialManager",
+    "NormalizedName": "FINANCIALMANAGER",
+    "Description": "Role for users responsible for managing financial operations",
+    "ConcurrencyStamp": "a2d9f6c1-3b7e-4d5a-9f2b-1c8e7d6a5b4c",
+    "IsSystemRole": false
+  },
+  {
+    "Id": "01JVMWURIMCNHIHREUXG9Z5KX9",
+    "Name": "HR",
+    "NormalizedName": "HR",
+    "Description": "Role for users responsible for human resources management",
+    "ConcurrencyStamp": "b3e8g7d2-4c6f-5e4b-8a3c-2d9f8e7b6c5d",
+    "IsSystemRole": false
   }
 ]

@@ -32,6 +32,11 @@ public class IdentityConfiguration :
             .HasForeignKey(ur => ur.UserId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
+
+        builder.HasMany(o => o.Attendances)
+            .WithOne(o => o.User)
+            .HasForeignKey(o => o.UserId)
+            .OnDelete(DeleteBehavior.SetNull);
         
     }
 

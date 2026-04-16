@@ -13,10 +13,15 @@ public class AddAttendanceCommandHandler(
         AddAttendanceCommand request,
         CancellationToken cancellationToken)
     {
-        // Always compute HoursWorked server-side from CheckIn/CheckOut
+        // Always compute HoursWorked server-side
         decimal hoursWorked = 0;
+
         if (request.CheckInTime.HasValue && request.CheckOutTime.HasValue)
-            hoursWorked = (decimal)(request.CheckOutTime.Value - request.CheckInTime.Value).TotalHours;
+        {
+            hoursWorked =
+                (decimal)(request.CheckOutTime.Value - request.CheckInTime.Value)
+                .TotalHours;
+        }
 
         var attendance = new Domain.Models.Attendance.Attendance
         {
@@ -31,6 +36,9 @@ public class AddAttendanceCommandHandler(
             Notes = request.Notes,
             IsConfirmed = false,
             IsDeleted = false,
+
+            // ? FIX: assign UserId properly
+            UserId = request.UserId
         };
 
         await repository.AddAsync(attendance, cancellationToken);

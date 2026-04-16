@@ -5,11 +5,12 @@ using Domain.Models.Attendance.Enums;
 namespace Application.Features.Attendance.Commands.Add;
 
 public record AddAttendanceCommand(
-    Ulid EmployeeId,
+    Ulid? EmployeeId,
     DateTime Date,
     DateTime? CheckInTime,
     DateTime? CheckOutTime,
     decimal HoursToWork,
     AttendanceStatus Status,
-    string? Notes
+    string? Notes,
+    Ulid? UserId
 ) : ICommand<Ulid>;

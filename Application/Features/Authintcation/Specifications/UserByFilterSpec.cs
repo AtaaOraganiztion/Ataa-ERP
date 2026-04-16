@@ -14,6 +14,7 @@ public class UserByFilterSpec : Specification<Domain.Entities.User>
             .Search(u => u.Name, "%" + filter.Name + "%", !string.IsNullOrWhiteSpace(filter.Name))
             .Search(u => u.Email, "%" + filter.Email + "%", !string.IsNullOrWhiteSpace(filter.Email))
             .OrderBy(u => u.Name)
+            .ThenBy(u => u.Id)
             .Skip(filter.PageSize * (filter.PageIndex - 1))
             .Take(filter.PageSize);
     }

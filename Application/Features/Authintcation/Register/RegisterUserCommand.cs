@@ -10,5 +10,6 @@ public record RegisterUserCommand(
     int Age,
     string NID,
     Gender? Gender,
-    string Password
+   string Password,
+   string Role = "User"
 ) : ICommand;

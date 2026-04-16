@@ -18,20 +18,37 @@ public class UpdateAttendanceStatusCommandHandler(
         var attendance = await repository.GetByIdAsync(request.AttendanceId, cancellationToken);
 
         if (attendance is null)
-            return Result.Failure<Ulid>(Error.NotFound(AttendenceMessageKeys.AttendenceNotFound));
+            return Result.Failure<Ulid>(
+                Error.NotFound(AttendenceMessageKeys.AttendenceNotFound));
 
-        // When marking absent clear times and hours — no work was done
+        // Update basic fields
+        attendance.Status = request.Status;
+
+        if (request.Notes is not null)
+            attendance.Notes = request.Notes;
+
+        // Update CheckIn / CheckOut if provided
+        if (request.CheckInTime.HasValue)
+            attendance.CheckInTime = request.CheckInTime;
+
+        if (request.CheckOutTime.HasValue)
+            attendance.CheckOutTime = request.CheckOutTime;
+
+        // Recalculate HoursWorked safely
+        if (attendance.CheckInTime.HasValue && attendance.CheckOutTime.HasValue)
+        {
+            attendance.HoursWorked =
+                (decimal)(attendance.CheckOutTime.Value - attendance.CheckInTime.Value)
+                .TotalHours;
+        }
+
+        // Business rule: Absent resets everything
         if (request.Status == AttendanceStatus.Absent)
         {
             attendance.CheckInTime = null;
             attendance.CheckOutTime = null;
             attendance.HoursWorked = 0;
         }
-
-        attendance.Status = request.Status;
-
-        if (request.Notes is not null)
-            attendance.Notes = request.Notes;
 
         await repository.UpdateAsync(attendance, cancellationToken);
 

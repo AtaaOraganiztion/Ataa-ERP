@@ -8,9 +8,6 @@
 
     <ItemGroup>
       <Folder Include="Identities\Entities\" />
-      <Folder Include="Models\CRM\Customer\" />
-      <Folder Include="Models\CRM\Lead\" />
-      <Folder Include="Models\CRM\Deal\" />
     </ItemGroup>
 
     <ItemGroup>

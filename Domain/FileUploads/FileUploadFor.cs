@@ -7,4 +7,5 @@ public enum FileUploadFor
     Categories,
     Universities,
     HtmlTemplates,
+    Activity
 }

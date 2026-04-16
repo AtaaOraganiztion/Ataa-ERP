@@ -24,14 +24,21 @@ public class RegisterUserCommandHandler(UserManager<Domain.Entities.User> userMa
             Gender = request.Gender,
             LastLoginDate = DateTime.Now,
             PhoneNumber = request.PhoneNumber,
-            
         };
 
         IdentityResult result = await userManager.CreateAsync(user, request.Password);
 
         if (result.Succeeded)
         {
-            await userManager.AddToRoleAsync(user, "User");
+            IdentityResult roleResult = await userManager.AddToRoleAsync(user, request.Role);
+
+            if (!roleResult.Succeeded)
+            {
+                IEnumerable<Error> roleErrors = roleResult.Errors
+                    .Select(e => new Error(e.Code, ErrorType.Validation));
+
+                return Result.Failure(new ValidationError([.. roleErrors]));
+            }
 
             await mediator.Publish(new UserRegisteredDomainEvent(user), cancellationToken);
 
