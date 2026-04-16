@@ -9,7 +9,8 @@ namespace Domain.Models.Attendance
 {
     public class Attendance : Entity,ISoftDeletableEntity
     {
-        public Ulid EmployeeId { get; set; }
+        public Ulid? EmployeeId { get; set; }
+        public Ulid? UserId { get; set; }
         public DateTime Date { get; set; }
         public DateTime? CheckInTime { get; set; }
         public DateTime? CheckOutTime { get; set; }
@@ -21,8 +22,9 @@ namespace Domain.Models.Attendance
         public DateTime? ConfirmedDate { get; set; }
         public string? Notes { get; set; }
 
-        public virtual Employee.Employee Employee { get; set; }
-        public virtual User Confirmer { get; set; }
+        public virtual User? User { get; set; }
+        public virtual Domain.Models.Employee.Employee? Employee { get; set; }
+        public virtual User? Confirmer { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime DeletedOnUtc { get; set; }
     }

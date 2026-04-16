@@ -2,7 +2,7 @@
 
 public abstract class Entity : IHasKey<Ulid>
 {
-    public Ulid Id { get; set; }
+    public Ulid Id { get; set; } = Ulid.NewUlid();
 
     private readonly List<IDomainEvent> _domainEvents = [];
     

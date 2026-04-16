@@ -23,8 +23,8 @@ public class GetUsersQueryHandler(
 
         var userDtos = users.Select(u => new UserDto(u.Id,
             u.Name,
-            u.Email!,
             u.Phone ?? string.Empty,
+            u.Email ?? string.Empty,
             u.NID,
             u.Age,
             u.Gender,

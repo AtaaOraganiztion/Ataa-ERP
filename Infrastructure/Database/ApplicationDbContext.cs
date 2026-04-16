@@ -12,14 +12,23 @@ using Microsoft.AspNetCore.Identity;
 using Domain.Models.Salary;
 using Domain.Models.Sector;
 using Domain.Models.Finance.Budget;
+using Domain.Models.CRM.Customer;
+using Domain.Models.CRM.Lead;
+using Domain.Models.CRM.Deal;
+using Domain.Models.CRM.Activity;
 
 namespace Infrastructure.Database
 {
     public sealed class ApplicationDbContext : IdentityDbContext<User, Role, Ulid>
     {
+        public DbSet<Domain.Models.CRM.Customer.Customer> Customers { get; set; }
+        public DbSet<Domain.Models.CRM.Lead.Lead> Leads { get; set; }
+        public DbSet<Domain.Models.CRM.Deal.Deal> Deals { get; set; }
+        public DbSet<Domain.Models.CRM.Activity.Activity> Activities { get; set; }
         public DbSet<Sector> Sectors { get; set; }
         public DbSet<Salary> Salaries { get; set; }
         public DbSet<Budget> budgets { get; set; }
+        public DbSet<Activity.File> Files => Set<Activity.File>();
         public DbSet<Domain.Models.Attendance.Attendance> Attendances { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

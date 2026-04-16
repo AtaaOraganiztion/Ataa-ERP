@@ -28,13 +28,28 @@ public class AttendanceController() : ApiBaseController
         return result.ToCreatedActionResult();
     }
 
+    [HttpPut(Router.AttendanceRouter.UpdateStatus)]
     [HttpPatch(Router.AttendanceRouter.UpdateStatus)]
-    public async Task<IActionResult> UpdateStatus(Ulid id, [FromBody] UpdateAttendanceStatusRequest request)
+    public async Task<IActionResult> UpdateStatus(
+        [FromRoute] Ulid id,
+        [FromBody] UpdateAttendanceStatusRequest request)
     {
         Result<Ulid> result = await mediator.Send(
-            new UpdateAttendanceStatusCommand(id, request.Status, request.Notes));
+            new UpdateAttendanceStatusCommand(
+                id,
+                request.Status,
+                request.Notes,
+                request.CheckInTime,
+                request.CheckOutTime
+            ));
+
         return result.ToActionResult();
     }
 }
 
-public record UpdateAttendanceStatusRequest(AttendanceStatus Status, string? Notes);
+public record UpdateAttendanceStatusRequest(
+    AttendanceStatus Status,
+    string? Notes,
+    DateTime? CheckInTime,
+    DateTime? CheckOutTime
+);

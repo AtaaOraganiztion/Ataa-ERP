@@ -35,6 +35,12 @@ public class AttendanceConfiguration : IEntityTypeConfiguration<Domain.Models.At
             .HasForeignKey(a => a.ConfirmedBy)
             .OnDelete(DeleteBehavior.NoAction);
 
+        builder 
+            .HasOne(o=>o.User)
+            .WithMany()
+            .HasForeignKey(o=>o.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+
         // Index for fast lookups by employee + date (most common query)
         builder.HasIndex(a => new { a.EmployeeId, a.Date });
 

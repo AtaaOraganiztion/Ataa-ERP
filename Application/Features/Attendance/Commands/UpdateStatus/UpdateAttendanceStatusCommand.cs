@@ -7,5 +7,7 @@ namespace Application.Features.Attendance.Commands.UpdateStatus;
 public record UpdateAttendanceStatusCommand(
     Ulid AttendanceId,
     AttendanceStatus Status,
-    string? Notes
+    string? Notes,
+    DateTime? CheckInTime,
+    DateTime? CheckOutTime
 ) : ICommand<Ulid>;

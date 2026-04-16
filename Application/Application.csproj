@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-	<PropertyGroup>
+    <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <OutputType>Library</OutputType>
     </PropertyGroup>
 
-	<ItemGroup>
-	  <Compile Remove="Features\Finance\Budget\Commands\Delte\**" />
-	  <Content Remove="Features\Finance\Budget\Commands\Delte\**" />
-	  <EmbeddedResource Remove="Features\Finance\Budget\Commands\Delte\**" />
-	  <None Remove="Features\Finance\Budget\Commands\Delte\**" />
-	</ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Features\Finance\Budget\Commands\Delte\**" />
+      <Content Remove="Features\Finance\Budget\Commands\Delte\**" />
+      <EmbeddedResource Remove="Features\Finance\Budget\Commands\Delte\**" />
+      <None Remove="Features\Finance\Budget\Commands\Delte\**" />
+    </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Features\Employee\" />

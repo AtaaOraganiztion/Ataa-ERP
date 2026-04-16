@@ -81,6 +81,7 @@ builder.Services.AddSwaggerGen(
         // Add this to treat Ulid as string in Swagger
         options.MapType<Ulid>(() => new OpenApiSchema { Type = "string", Format = "ulid" });
     });
+builder.Services.AddScoped<IFileStorageService, LocalFileStorageService>();
 
 var app = builder.Build();
 app.MapControllers();
@@ -113,5 +114,6 @@ app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.Run();
