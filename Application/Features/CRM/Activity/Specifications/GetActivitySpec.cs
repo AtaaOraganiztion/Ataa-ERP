@@ -1,4 +1,4 @@
-﻿using Application.Features.CRM.Activity.Queries.GetAll;
+using Application.Features.CRM.Activity.Queries.GetAll;
 using Ardalis.Specification;
 using Domain.Models.CRM.Activity;
 using Application.Features.CRM.Activity.Dtos;
@@ -43,5 +43,7 @@ public class GetActivitySpec : Specification<Domain.Models.CRM.Activity.Activity
 
         if (filter.ToDate.HasValue)
             Query.Where(x => x.ActivityDate <= filter.ToDate.Value);
+
+
     }
 }

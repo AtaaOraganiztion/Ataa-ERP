@@ -1,4 +1,5 @@
-﻿using Application.Abstractions.Messaging;
+using Application.Abstractions.Authentication;
+using Application.Abstractions.Messaging;
 using Application.Abstractions.Repositories;
 using Application.Features.CRM.Activity.Commands.Update;
 using AutoMapper;
@@ -7,11 +8,13 @@ using SharedKernel;
 public class UpdateActivityCommandHandler(
     IMapper mapper,
     IRepository<Domain.Models.CRM.Activity.Activity> repository,
-    IFileStorageService fileStorage)
+    IFileStorageService fileStorage,
+    IUserContext userContext)
     : ICommandHandler<UpdateActivityCommand, Ulid>
 {
     public async Task<Result<Ulid>> Handle(UpdateActivityCommand request, CancellationToken cancellationToken)
     {
+        var userId = userContext.GetUserId();
         var activity = await repository.FirstOrDefaultAsync(
             new ActivityByIdSpec(request.Id), cancellationToken);
 
@@ -20,16 +23,21 @@ public class UpdateActivityCommandHandler(
 
         mapper.Map(request.Request, activity);
 
+        if (request.Request.DeletedFileIds is { Count: > 0 })
+        {
+            var filesToRemove = activity.Files
+                .Where(f => request.Request.DeletedFileIds.Contains(f.Id))
+                .ToList();
+
+            foreach (var file in filesToRemove)
+            {
+                fileStorage.Delete(file.StoragePath);
+                activity.Files.Remove(file);
+            }
+        }
+
         if (request.Request.Files is not null)
         {
-            // delete old files
-            foreach (var existing in activity.Files)
-            {
-                fileStorage.Delete(existing.StoragePath);
-            }
-
-            activity.Files.Clear();
-
             // add new files
             foreach (var formFile in request.Request.Files)
             {
@@ -42,7 +50,8 @@ public class UpdateActivityCommandHandler(
                     StoragePath = storagePath,
                     ContentType = formFile.ContentType,
                     FileSizeInBytes = formFile.Length,
-                    UploadedAtUtc = DateTime.UtcNow
+                    UploadedAtUtc = DateTime.UtcNow,
+                    CreatedByUserId = userId
                 });
             }
         }

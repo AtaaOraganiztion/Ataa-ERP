@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Domain.Models.Finance.Budget;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -48,6 +48,8 @@ public class BudgetConfigurations : IEntityTypeConfiguration<Domain.Models.Finan
          .Property(ba => ba.AllocatedAmount)
         .HasPrecision(18, 2);
 
-     
+        builder.Property(b => b.Limit).HasPrecision(18, 2);
+        builder.Property(b => b.RemainingAmount).HasPrecision(18, 2);
+        builder.Property(b => b.BudgetLimit).HasPrecision(18, 2);
     }
 }

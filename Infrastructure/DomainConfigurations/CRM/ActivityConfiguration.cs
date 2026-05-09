@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Domain.Enums.CRM;
 using Domain.Models.CRM;
@@ -10,6 +10,7 @@ public class ActivityConfiguration : IEntityTypeConfiguration<Domain.Models.CRM.
         builder.ToTable("Activity");
         builder.HasIndex(a => a.Type);
         builder.HasIndex(a => a.IsDeleted);
+
 
         builder.Property(a => a.Subject).IsRequired().HasMaxLength(200);
 
@@ -34,6 +35,11 @@ public class ActivityConfiguration : IEntityTypeConfiguration<Domain.Models.CRM.
             .WithMany()
             .HasForeignKey(a => a.AssignedToUserId)
             .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(a => a.CreatedBy)
+            .WithMany(u => u.Activities)
+            .HasForeignKey(a => a.CreatedByUserId)
+            .OnDelete(DeleteBehavior.NoAction);
 
 
     }

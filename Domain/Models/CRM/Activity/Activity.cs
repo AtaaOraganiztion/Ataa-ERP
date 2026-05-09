@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using Domain.Enums.CRM;
 using SharedKernel;
 using SharedKernel.Common;
@@ -17,11 +17,13 @@ public class Activity : Entity, ISoftDeletableEntity
     public Ulid? LeadId { get; set; }
     public Ulid? DealId { get; set; }
     public Ulid? AssignedToUserId { get; set; }
+    public Ulid? CreatedByUserId { get; set; }
 
     public virtual Customer.Customer? Customer { get; set; }
     public virtual Lead.Lead? Lead { get; set; }
     public virtual Deal.Deal? Deal { get; set; }
     public virtual User? AssignedTo { get; set; }
+    public virtual User? CreatedBy { get; set; }
 
     public virtual ICollection<File> Files { get; set; } = new List<File>();
 
@@ -36,7 +38,9 @@ public class Activity : Entity, ISoftDeletableEntity
         public string ContentType { get; set; } = string.Empty;
         public long FileSizeInBytes { get; set; }
         public DateTime UploadedAtUtc { get; set; }
+        public Ulid? CreatedByUserId { get; set; }
 
         public virtual Activity? Activity { get; set; }
+        public virtual User? User { get; set; }
     }
 }

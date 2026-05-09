@@ -58,7 +58,7 @@ public class ActivityController : ApiBaseController
         Result<GetActivityDto> result = await mediator.Send(new GetActivityByIdQuery(id));
         return result.ToActionResult();
     }
-    [HttpGet("files/{id}")]
+    [HttpGet("activity-files/{id}")]
     public async Task<IActionResult> DownloadFile(Ulid id)
     {
         var result = await mediator.Send(new GetActivityFileByIdQuery(id));

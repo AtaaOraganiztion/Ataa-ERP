@@ -1,4 +1,4 @@
-﻿using Application.Features.CRM.Activity.Dtos;
+using Application.Features.CRM.Activity.Dtos;
 using Domain.Enums.CRM;
 
 namespace Application.Features.CRM.Activity.Queries.GetAll;

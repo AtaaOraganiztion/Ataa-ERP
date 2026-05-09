@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -25,10 +25,15 @@ namespace Infrastructure.Database
         public DbSet<Domain.Models.CRM.Lead.Lead> Leads { get; set; }
         public DbSet<Domain.Models.CRM.Deal.Deal> Deals { get; set; }
         public DbSet<Domain.Models.CRM.Activity.Activity> Activities { get; set; }
+        public DbSet<Domain.Models.CRM.GlobalActivity.GlobalActivity> GlobalActivities { get; set; }
         public DbSet<Sector> Sectors { get; set; }
         public DbSet<Salary> Salaries { get; set; }
         public DbSet<Budget> budgets { get; set; }
+        public DbSet<Domain.Models.Employee.Employee> Employees { get; set; }
+        public DbSet<Domain.Models.Adverisment.Adverisment> Aderisments { get; set; }
+        public DbSet<Domain.Models.Foras.Foras> Foras { get; set; }
         public DbSet<Activity.File> Files => Set<Activity.File>();
+        public DbSet<Domain.Models.CRM.GlobalActivity.GlobalActivity.File> GlobalActivityFiles => Set<Domain.Models.CRM.GlobalActivity.GlobalActivity.File>();
         public DbSet<Domain.Models.Attendance.Attendance> Attendances { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -59,6 +64,7 @@ namespace Infrastructure.Database
         {
             base.ConfigureConventions(configurationBuilder);
             configurationBuilder.AddUlidConvention();
+            configurationBuilder.Properties<decimal>().HavePrecision(18, 2);
         }
     }
 }

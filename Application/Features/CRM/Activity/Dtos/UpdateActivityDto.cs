@@ -1,4 +1,4 @@
-﻿using Domain.Enums.CRM;
+using Domain.Enums.CRM;
 
 namespace Application.Features.CRM.Activity.Dtos;
 
@@ -12,6 +12,8 @@ public record UpdateActivityDto(
     Ulid? LeadId,
     Ulid? DealId,
     Ulid? AssignedToUserId,
+    Ulid? CreatedByUserId,
     List<IFormFile>? Files,
+    List<Ulid>? DeletedFileIds,
     ActivityResult ActivityResult 
 );

@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -19,6 +19,9 @@ public class EmployeeConfigurations : IEntityTypeConfiguration<Domain.Models.Emp
             .IsUnique();
         builder
             .HasIndex(b=> b.EmployeeLastName);
+
+        builder.Property(e => e.BaseSalary)
+            .HasPrecision(18, 2);
         
         builder
             .HasOne(e => e.Sector)

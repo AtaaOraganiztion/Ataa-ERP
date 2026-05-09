@@ -1,4 +1,4 @@
-﻿
+
 using Domain.Entities;
 using Domain.Enums.CRM;
 using SharedKernel;
@@ -23,6 +23,7 @@ public class Deal : Entity, ISoftDeletableEntity
     public virtual User? AssignedTo { get; set; }
     public virtual Customer.Customer? Customer { get; set; }    
     public virtual ICollection<Domain.Models.CRM.Activity.Activity> Activities { get; set; }
+    public virtual ICollection<Domain.Models.CRM.GlobalActivity.GlobalActivity> GlobalActivities { get; set; }
 
     public Deal()
     {

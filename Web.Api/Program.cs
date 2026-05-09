@@ -93,6 +93,7 @@ app.MapControllers();
 // {
 //     
 // }
+app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI();
 

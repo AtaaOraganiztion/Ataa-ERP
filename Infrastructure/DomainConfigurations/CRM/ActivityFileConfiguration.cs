@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public class ActivityFileConfiguration : IEntityTypeConfiguration<Domain.Models.CRM.Activity.Activity.File>
@@ -17,5 +17,10 @@ public class ActivityFileConfiguration : IEntityTypeConfiguration<Domain.Models.
             .WithMany(x => x.Files)
             .HasForeignKey(x => x.ActivityId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(x => x.User)
+            .WithMany()
+            .HasForeignKey(x => x.CreatedByUserId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

@@ -190,6 +190,102 @@ namespace Infrastructure.Migrations
                     b.ToTable("Users", "Identity");
                 });
 
+            modelBuilder.Entity("Domain.Models.Adverisment.Adverisment", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("CreatedByUserId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<DateTime>("DeletedOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("EndDate");
+
+                    b.HasIndex("StartDate");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("StartDate", "EndDate");
+
+                    b.ToTable("Adverisments", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.Adverisment.Adverisment+AdverismentFile", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("AdverismentId")
+                        .IsRequired()
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByUserId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("FileSizeInBytes")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("StoragePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UploadedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdverismentId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.ToTable("AdverismentFile");
+                });
+
             modelBuilder.Entity("Domain.Models.Attendance.Attendance", b =>
                 {
                     b.Property<string>("Id")
@@ -273,6 +369,10 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(26)
                         .HasColumnType("nvarchar(26)");
 
+                    b.Property<string>("CreatedByUserId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
                     b.Property<string>("CustomerId")
                         .HasMaxLength(26)
                         .HasColumnType("nvarchar(26)");
@@ -309,6 +409,8 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("AssignedToUserId");
 
+                    b.HasIndex("CreatedByUserId");
+
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("DealId");
@@ -338,6 +440,10 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("CreatedByUserId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
                     b.Property<string>("FileName")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -356,6 +462,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ActivityId");
+
+                    b.HasIndex("CreatedByUserId");
 
                     b.ToTable("Files", (string)null);
                 });
@@ -473,6 +581,115 @@ namespace Infrastructure.Migrations
                     b.ToTable("Deal", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Models.CRM.GlobalActivity.GlobalActivity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<DateTime>("ActivityDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ActivityResult")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedByUserId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("CustomerId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("DealId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<DateTime>("DeletedOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LeadId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("DealId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("LeadId");
+
+                    b.HasIndex("Type");
+
+                    b.ToTable("GlobalActivities", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.CRM.GlobalActivity.GlobalActivity+File", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CreatedByUserId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<long>("FileSizeInBytes")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("GlobalActivityId")
+                        .IsRequired()
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("StoragePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UploadedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("GlobalActivityId");
+
+                    b.ToTable("GlobalActivityFiles", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Models.CRM.Lead.Lead", b =>
                 {
                     b.Property<string>("Id")
@@ -550,6 +767,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(26)");
 
                     b.Property<decimal>("BaseSalary")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("DeletedOnUtc")
@@ -626,6 +844,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("BudgetLimit")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ConfirmedBy")
@@ -655,6 +874,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Limit")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ModifiedBy")
@@ -667,6 +887,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("RemainingAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SectorId")
@@ -917,6 +1138,102 @@ namespace Infrastructure.Migrations
                     b.ToTable("ProcureToPay", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Models.Foras.Foras", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("CreatedByUserId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<DateTime>("DeletedOnUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("EndDate");
+
+                    b.HasIndex("StartDate");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("StartDate", "EndDate");
+
+                    b.ToTable("Foras", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.Foras.Foras+ForasFile", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByUserId")
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("FileSizeInBytes")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ForasId")
+                        .IsRequired()
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
+
+                    b.Property<string>("StoragePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UploadedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("ForasId");
+
+                    b.ToTable("ForasFile");
+                });
+
             modelBuilder.Entity("Domain.Models.Project", b =>
                 {
                     b.Property<string>("Id")
@@ -924,6 +1241,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(26)");
 
                     b.Property<decimal>("ActualCost")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Area")
@@ -934,6 +1252,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("CompletionPercentage")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("Deadline")
@@ -944,9 +1263,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<decimal>("EstimatedBudget")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsDeleted")
@@ -954,11 +1275,13 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ProjectCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ProjectManagerId")
                         .HasMaxLength(26)
@@ -981,7 +1304,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("SectorId");
 
-                    b.ToTable("Project");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Salary.Salary", b =>
@@ -991,12 +1314,15 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(26)");
 
                     b.Property<decimal>("Allowances")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("BaseSalary")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("BonusAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ConfirmedBy")
@@ -1008,6 +1334,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Deductions")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("DeletedOnUtc")
@@ -1019,6 +1346,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(26)");
 
                     b.Property<decimal>("HoursWorked")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsConfirmed")
@@ -1034,9 +1362,11 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("NetSalary")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("OvertimeAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("PaidDate")
@@ -1236,6 +1566,38 @@ namespace Infrastructure.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("Domain.Models.Adverisment.Adverisment", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Domain.Entities.User", null)
+                        .WithMany("Adverisments")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Models.Adverisment.Adverisment+AdverismentFile", b =>
+                {
+                    b.HasOne("Domain.Models.Adverisment.Adverisment", "Adverisment")
+                        .WithMany("Files")
+                        .HasForeignKey("AdverismentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Adverisment");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Domain.Models.Attendance.Attendance", b =>
                 {
                     b.HasOne("Domain.Entities.User", "Confirmer")
@@ -1267,6 +1629,11 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("AssignedToUserId")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("Domain.Entities.User", "CreatedBy")
+                        .WithMany("Activities")
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("Domain.Models.CRM.Customer.Customer", "Customer")
                         .WithMany("Activities")
                         .HasForeignKey("CustomerId")
@@ -1284,6 +1651,8 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("AssignedTo");
 
+                    b.Navigation("CreatedBy");
+
                     b.Navigation("Customer");
 
                     b.Navigation("Deal");
@@ -1299,7 +1668,14 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.Navigation("Activity");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.CRM.Customer.Customer", b =>
@@ -1335,6 +1711,55 @@ namespace Infrastructure.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Lead");
+                });
+
+            modelBuilder.Entity("Domain.Models.CRM.GlobalActivity.GlobalActivity", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "CreatedBy")
+                        .WithMany("GlobalActivities")
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Domain.Models.CRM.Customer.Customer", "Customer")
+                        .WithMany("GlobalActivities")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Domain.Models.CRM.Deal.Deal", "Deal")
+                        .WithMany("GlobalActivities")
+                        .HasForeignKey("DealId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Domain.Models.CRM.Lead.Lead", "Lead")
+                        .WithMany("GlobalActivities")
+                        .HasForeignKey("LeadId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Deal");
+
+                    b.Navigation("Lead");
+                });
+
+            modelBuilder.Entity("Domain.Models.CRM.GlobalActivity.GlobalActivity+File", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Domain.Models.CRM.GlobalActivity.GlobalActivity", "GlobalActivity")
+                        .WithMany("Files")
+                        .HasForeignKey("GlobalActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GlobalActivity");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.CRM.Lead.Lead", b =>
@@ -1452,16 +1877,49 @@ namespace Infrastructure.Migrations
                     b.Navigation("Sector");
                 });
 
+            modelBuilder.Entity("Domain.Models.Foras.Foras", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Domain.Entities.User", null)
+                        .WithMany("Foras")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Models.Foras.Foras+ForasFile", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Domain.Models.Foras.Foras", "Foras")
+                        .WithMany("Files")
+                        .HasForeignKey("ForasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Foras");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Domain.Models.Project", b =>
                 {
                     b.HasOne("Domain.Entities.User", "ProjectManager")
                         .WithMany()
-                        .HasForeignKey("ProjectManagerId");
+                        .HasForeignKey("ProjectManagerId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Domain.Models.Sector.Sector", "Sector")
                         .WithMany()
                         .HasForeignKey("SectorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ProjectManager");
@@ -1572,9 +2030,22 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
+                    b.Navigation("Activities");
+
+                    b.Navigation("Adverisments");
+
                     b.Navigation("Attendances");
 
+                    b.Navigation("Foras");
+
+                    b.Navigation("GlobalActivities");
+
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Domain.Models.Adverisment.Adverisment", b =>
+                {
+                    b.Navigation("Files");
                 });
 
             modelBuilder.Entity("Domain.Models.CRM.Activity.Activity", b =>
@@ -1588,12 +2059,21 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("Deals");
 
+                    b.Navigation("GlobalActivities");
+
                     b.Navigation("Leads");
                 });
 
             modelBuilder.Entity("Domain.Models.CRM.Deal.Deal", b =>
                 {
                     b.Navigation("Activities");
+
+                    b.Navigation("GlobalActivities");
+                });
+
+            modelBuilder.Entity("Domain.Models.CRM.GlobalActivity.GlobalActivity", b =>
+                {
+                    b.Navigation("Files");
                 });
 
             modelBuilder.Entity("Domain.Models.CRM.Lead.Lead", b =>
@@ -1601,6 +2081,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("Activities");
 
                     b.Navigation("Deals");
+
+                    b.Navigation("GlobalActivities");
                 });
 
             modelBuilder.Entity("Domain.Models.Employee.Employee", b =>
@@ -1611,6 +2093,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Finance.Budget.Budget", b =>
                 {
                     b.Navigation("BudgetAllocations");
+                });
+
+            modelBuilder.Entity("Domain.Models.Foras.Foras", b =>
+                {
+                    b.Navigation("Files");
                 });
 
             modelBuilder.Entity("Domain.Models.Project", b =>

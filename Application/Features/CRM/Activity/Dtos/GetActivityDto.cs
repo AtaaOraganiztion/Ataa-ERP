@@ -1,4 +1,4 @@
-﻿using Domain.Enums.CRM;
+using Domain.Enums.CRM;
 
 namespace Application.Features.CRM.Activity.Dtos;
 
@@ -13,6 +13,7 @@ public record GetActivityDto(
     Ulid? LeadId,
     Ulid? DealId,
     Ulid? AssignedToUserId,
+    Ulid? CreatedByUserId,
     ActivityResult ActivityResult,
     List<ActivityFileDto> Files   
 );
@@ -22,5 +23,6 @@ public record ActivityFileDto(
     string? ContentType,
     long? FileSizeInBytes,
     DateTime? UploadedAtUtc,
+    Ulid? CreatedByUserId,
     string DownloadUrl
 );

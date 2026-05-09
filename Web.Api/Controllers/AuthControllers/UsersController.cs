@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel;
 using Web.Api.Controllers.BaseController;
 using Web.Api.Extensions;
+using Application.Features.Authintcation.GetDesigners;
 
 namespace Web.Api.Controllers;
 
@@ -76,4 +77,11 @@ public class UsersController() : ApiBaseController
         return result.ToActionResult();
     }
 
-} 
+    [Authorize]
+    [HttpGet("designers")]
+    public async Task<IActionResult> GetDesigners([FromQuery] UserFilter filter)
+    {
+        Result<PaginatedResponse<UserDto>> result = await mediator.Send(new GetDesignersQuery(filter));
+        return result.ToActionResult();
+    }
+}

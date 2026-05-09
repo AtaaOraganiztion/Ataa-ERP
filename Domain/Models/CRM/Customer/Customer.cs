@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using Domain.Enums.CRM;
 using Domain.Models.CRM.Lead;
 using SharedKernel;
@@ -21,6 +21,7 @@ public class Customer : Entity, ISoftDeletableEntity
     public virtual User? AssignedTo { get; set; }
     public virtual ICollection<Domain.Models.CRM.Lead.Lead> Leads { get; set; }
     public virtual ICollection<Domain.Models.CRM.Activity.Activity> Activities { get; set; }
+    public virtual ICollection<Domain.Models.CRM.GlobalActivity.GlobalActivity> GlobalActivities { get; set; }
     public virtual ICollection<Domain.Models.CRM.Deal.Deal>  Deals { get; set; }
     
     public Customer()

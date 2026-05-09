@@ -1,0 +1,18 @@
+dotnet ef database update --project Infrastructure --startup-project Web.Api
+dotnet ef migrations add AddForas --project Infrastructure --startup-project Web.Api
+================================
+
+to connect db in ssms:
+ssh -L 1433:127.0.0.1:1433 root@62.72.16.59
+
+
+
+========================
+
+To publish:
+
+dotnet publish -c Release -o ./publish
+scp -r ./publish/* root@62.72.16.59:/var/www/istdama-erp-api/publish/
+ssh root@62.72.16.59
+sudo systemctl restart istdama-api.service
+sudo systemctl status istdama-api.service 

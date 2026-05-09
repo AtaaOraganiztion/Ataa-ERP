@@ -1,0 +1,5 @@
+المحاسبة المالية 
+CRM
+ادارة المشاريع 
+if (fully employed)
+send one request to add emp and user and show (username & password)

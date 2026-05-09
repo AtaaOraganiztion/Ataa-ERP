@@ -1,4 +1,4 @@
-﻿// AddActivityCommand.cs
+// AddActivityCommand.cs
 using Application.Abstractions.Messaging;
 using Domain.Enums.CRM;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +15,7 @@ public record AddActivityCommand(
     Ulid? LeadId,
     Ulid? DealId,
     Ulid? AssignedToUserId,
+    Ulid? CreatedByUserId,
     List<IFormFile>? Files,
     ActivityResult ActivityResult
 ) : ICommand<Ulid>;
