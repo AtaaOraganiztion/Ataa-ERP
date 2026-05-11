@@ -7,6 +7,7 @@ namespace Application.Features.Foras.Dtos
         DateTime? startdate,
         DateTime? enddate,
         string? Description,
+        string? Url,
         Ulid? FileId,
         Ulid? CreatedByUserId,
         List<IFormFile>? Files,

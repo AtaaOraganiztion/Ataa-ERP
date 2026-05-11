@@ -7,6 +7,7 @@ namespace Application.Features.Foras.Commands.Add
     public record AddForasCommand(
         string Title,
         string Description,
+        string ?Url,
         DateTime StartDate,
         DateTime EndDate,
         Ulid? CreatedByUserId,
