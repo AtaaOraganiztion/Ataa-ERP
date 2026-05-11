@@ -15,6 +15,8 @@ public class ForasMappingProfile : Profile
         CreateMap<AddForasCommand, Domain.Models.Foras.Foras>()
             .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+            .ForMember(dest => dest.Url, opt => opt.MapFrom(src => src.Url))
+
             .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate))
             .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate))
             .ForMember(dest => dest.CreatedByUserId, opt => opt.MapFrom(src => src.CreatedByUserId))
@@ -22,7 +24,8 @@ public class ForasMappingProfile : Profile
 
         CreateMap<UpdateForasDto, Domain.Models.Foras.Foras>()
             .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
-            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description)).ForMember(dest => dest.Url, opt => opt.MapFrom(src => src.Url))
+
             .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.startdate))
             .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.enddate))
             .ForMember(dest => dest.CreatedByUserId, opt => opt.MapFrom(src => src.CreatedByUserId))
@@ -31,7 +34,8 @@ public class ForasMappingProfile : Profile
         CreateMap<Domain.Models.Foras.Foras, GetForasDto>()
             .ForCtorParam("Id", opt => opt.MapFrom(src => src.Id))
             .ForCtorParam("Title", opt => opt.MapFrom(src => src.Title))
-            .ForCtorParam("Description", opt => opt.MapFrom(src => src.Description))
+            .ForCtorParam("Description", opt => opt.MapFrom(src => src.Description)).ForCtorParam("Url", opt => opt.MapFrom(src => src.Url))
+
             .ForCtorParam("startdate", opt => opt.MapFrom(src => src.StartDate))
             .ForCtorParam("enddate", opt => opt.MapFrom(src => src.EndDate))
             .ForCtorParam("CreatedByUserId", opt => opt.MapFrom(src => src.CreatedByUserId))

@@ -25,7 +25,6 @@ public class GlobalActivityController : ApiBaseController
 
     [HttpPost(Router.GlobalActivity.Add)]
     [Consumes("multipart/form-data")]
-    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddGlobalActivity([FromForm] AddGlobalActivityCommand request)
     {
         Result<Ulid> result = await mediator.Send(request);
@@ -42,7 +41,6 @@ public class GlobalActivityController : ApiBaseController
 
     [HttpPut(Router.GlobalActivity.Update)]
     [Consumes("multipart/form-data")]
-    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateGlobalActivity([FromRoute] Ulid id, [FromForm] UpdateGlobalActivityDto request)
     {
         Result<Ulid> result = await mediator.Send(new UpdateGlobalActivityCommand(id, request));

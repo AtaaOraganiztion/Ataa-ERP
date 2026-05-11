@@ -7,7 +7,9 @@ namespace Application.Features.Foras.Dtos
         DateTime? enddate,
         string? Description,
         Ulid? CreatedByUserId,
-        List<GetForasfileDto>? Files
+        List<GetForasfileDto>? Files,    
+        string? Url
+
     );
 
     public record GetForasfileDto(

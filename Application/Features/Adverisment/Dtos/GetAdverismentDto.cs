@@ -7,8 +7,8 @@ namespace Application.Features.Adverisment.Dtos
         DateTime? enddate,
         string? Description,
         Ulid? CreatedByUserId,
-         List<GetAdverismentfileDto>? Files
-
+         List<GetAdverismentfileDto>? Files,
+        string? Url
 
         );
     
