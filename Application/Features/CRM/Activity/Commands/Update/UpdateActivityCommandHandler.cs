@@ -4,10 +4,12 @@ using Application.Abstractions.Repositories;
 using Application.Features.CRM.Activity.Commands.Update;
 using AutoMapper;
 using Domain.Models.CRM.Activity;
+using Domain.Routing.BaseRouter;
 using SharedKernel;
 public class UpdateActivityCommandHandler(
     IMapper mapper,
     IRepository<Domain.Models.CRM.Activity.Activity> repository,
+    IRepository<Domain.Models.Notifications.Notification> notificationRepository,
     IFileStorageService fileStorage,
     IUserContext userContext)
     : ICommandHandler<UpdateActivityCommand, Ulid>
@@ -36,6 +38,8 @@ public class UpdateActivityCommandHandler(
             }
         }
 
+        var addedFiles = new List<Domain.Models.CRM.Activity.Activity.File>();
+
         if (request.Request.Files is not null)
         {
             // add new files
@@ -43,7 +47,7 @@ public class UpdateActivityCommandHandler(
             {
                 var storagePath = await fileStorage.SaveAsync(formFile, cancellationToken);
 
-                activity.Files.Add(new Domain.Models.CRM.Activity.Activity.File
+                var file = new Domain.Models.CRM.Activity.Activity.File
                 {
                     Activity = activity,
                     FileName = formFile.FileName,
@@ -52,11 +56,43 @@ public class UpdateActivityCommandHandler(
                     FileSizeInBytes = formFile.Length,
                     UploadedAtUtc = DateTime.UtcNow,
                     CreatedByUserId = userId
-                });
+                };
+
+                activity.Files.Add(file);
+                addedFiles.Add(file);
             }
         }
 
         await repository.UpdateAsync(activity, cancellationToken);
+
+        if (addedFiles.Any())
+        {
+            var recipients = new HashSet<Ulid>();
+
+            if (activity.CreatedByUserId.HasValue && activity.CreatedByUserId.Value != userId)
+                recipients.Add(activity.CreatedByUserId.Value);
+
+            if (activity.AssignedToUserId.HasValue && activity.AssignedToUserId.Value != userId)
+                recipients.Add(activity.AssignedToUserId.Value);
+
+            foreach (var recipient in recipients)
+            {
+                await notificationRepository.AddAsync(new Domain.Models.Notifications.Notification
+                {
+                    UserId = recipient,
+                    CreatedByUserId = userId,
+                    Type = "ActivityFileUploaded",
+                    Title = "New file added to activity",
+                    Message = activity.Subject,
+                    EntityType = nameof(Domain.Models.CRM.Activity.Activity),
+                    EntityId = activity.Id,
+                    Link = "/" + Router.Activity.GetById.Replace("{id}", activity.Id.ToString()),
+                    IsRead = false,
+                    CreatedAtUtc = DateTime.UtcNow
+                }, cancellationToken);
+            }
+        }
+
         return Result.Success(activity.Id);
     }
 }

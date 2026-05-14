@@ -32,6 +32,7 @@ namespace Infrastructure.Database
         public DbSet<Domain.Models.Employee.Employee> Employees { get; set; }
         public DbSet<Domain.Models.Adverisment.Adverisment> Aderisments { get; set; }
         public DbSet<Domain.Models.Foras.Foras> Foras { get; set; }
+        public DbSet<Domain.Models.Notifications.Notification> Notifications { get; set; }
         public DbSet<Activity.File> Files => Set<Activity.File>();
         public DbSet<Domain.Models.CRM.GlobalActivity.GlobalActivity.File> GlobalActivityFiles => Set<Domain.Models.CRM.GlobalActivity.GlobalActivity.File>();
         public DbSet<Domain.Models.Attendance.Attendance> Attendances { get; set; }

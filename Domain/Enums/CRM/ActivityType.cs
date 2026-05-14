@@ -1,3 +1,3 @@
 ﻿namespace Domain.Enums.CRM;
 
-public enum ActivityType { Call, Email, Meeting, Note, Task }
+public enum ActivityType { Call, Email, Meeting, Note, Task,design }

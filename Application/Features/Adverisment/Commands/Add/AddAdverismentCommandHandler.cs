@@ -2,6 +2,7 @@ using Application.Abstractions.Authentication;
 using Application.Abstractions.Messaging;
 using Application.Abstractions.Repositories;
 using AutoMapper;
+using Domain.Routing.BaseRouter;
 using Domain.Models.Adverisment;
 using SharedKernel;
 
@@ -10,6 +11,7 @@ namespace Application.Features.Adverisment.Commands.Add;
 public class AddAdverismentCommandHandler(
     IMapper mapper,
     IRepository<Domain.Models.Adverisment.Adverisment> repository,
+    IRepository<Domain.Models.Notifications.Notification> notificationRepository,
     IFileStorageService fileStorage,
     IUserContext userContext)
     : ICommandHandler<AddAdverismentCommand, Ulid>
@@ -40,6 +42,21 @@ public class AddAdverismentCommandHandler(
         }
 
         await repository.AddAsync(adverisment, cancellationToken);
+
+        await notificationRepository.AddAsync(new Domain.Models.Notifications.Notification
+        {
+            UserId = null,
+            CreatedByUserId = userId,
+            Type = "AdverismentCreated",
+            Title = "New Adverisment created",
+            Message = adverisment.Title,
+            EntityType = nameof(Domain.Models.Adverisment.Adverisment),
+            EntityId = adverisment.Id,
+            Link = "/" + Router.Adverisment.GetById.Replace("{id}", adverisment.Id.ToString()),
+            IsRead = false,
+            CreatedAtUtc = DateTime.UtcNow
+        }, cancellationToken);
+
         return Result.Success(adverisment.Id);
     }
 }
