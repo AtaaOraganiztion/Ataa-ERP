@@ -3,11 +3,13 @@ using Application.Abstractions.Messaging;
 using Application.Abstractions.Repositories;
 using Application.Features.CRM.Activity.Commands.Add;
 using AutoMapper;
+using Domain.Routing.BaseRouter;
 using SharedKernel;
 
 public class AddActivityCommandHandler(
     IMapper mapper,
     IRepository<Domain.Models.CRM.Activity.Activity> repository,
+    IRepository<Domain.Models.Notifications.Notification> notificationRepository,
     IFileStorageService fileStorage,
     IUserContext userContext)
     : ICommandHandler<AddActivityCommand, Ulid>
@@ -36,6 +38,24 @@ public class AddActivityCommandHandler(
         }
 
         await repository.AddAsync(activity, cancellationToken);
+
+        if (activity.AssignedToUserId.HasValue && activity.AssignedToUserId.Value != userId)
+        {
+            await notificationRepository.AddAsync(new Domain.Models.Notifications.Notification
+            {
+                UserId = activity.AssignedToUserId.Value,
+                CreatedByUserId = userId,
+                Type = "ActivityCreated",
+                Title = "New activity assigned",
+                Message = activity.Subject,
+                EntityType = nameof(Domain.Models.CRM.Activity.Activity),
+                EntityId = activity.Id,
+                Link = "/" + Router.Activity.GetById.Replace("{id}", activity.Id.ToString()),
+                IsRead = false,
+                CreatedAtUtc = DateTime.UtcNow
+            }, cancellationToken);
+        }
+
         return Result.Success(activity.Id);
     }
 } 
