@@ -1,4 +1,4 @@
-﻿using Infrastructure.Dependencies;
+using Infrastructure.Dependencies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,5 +18,6 @@ public static class DependencyInjection
             .AddDatabase(configuration)
             .AddDataSeeder()
             .AddAuthenticationInternal(configuration)
-            .AddHealthChecks(configuration);
+            .AddHealthChecks(configuration)
+            .AddHostedService<Infrastructure.BackgroundTasks.AttendanceBackgroundService>();
 }

@@ -35,6 +35,7 @@ namespace Infrastructure.Database
         public DbSet<Domain.Models.Notifications.Notification> Notifications { get; set; }
         public DbSet<Activity.File> Files => Set<Activity.File>();
         public DbSet<Domain.Models.CRM.GlobalActivity.GlobalActivity.File> GlobalActivityFiles => Set<Domain.Models.CRM.GlobalActivity.GlobalActivity.File>();
+        public DbSet<Domain.Models.CRM.EmployeePerformanceReport.EmployeePerformanceReport> EmployeePerformanceReports { get; set; }
         public DbSet<Domain.Models.Attendance.Attendance> Attendances { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
